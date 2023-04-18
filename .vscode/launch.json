@@ -27,6 +27,15 @@
             "program": "${workspaceFolder}/setup.py",
             "args": ["bdist_msi"],
             "console": "integratedTerminal"
+        
+        },
+        {
+            "name": "Dist_Zip Setup.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/setup.py",
+            "args": ["create_zip"],
+            "console": "integratedTerminal"
         }
     ]
 }
