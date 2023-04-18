@@ -1,0 +1,6 @@
+build/
+dist/
+output/
+icon.kra~
+ImportLog.log
+.venv

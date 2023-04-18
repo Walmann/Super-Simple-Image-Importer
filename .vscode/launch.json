@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Import.Py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Importer.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "BUILD_EXE Setup.py ",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/setup.py",
+            "args": ["build_exe"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "BDLIST_MSI Setup.py ",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/setup.py",
+            "args": ["bdist_msi"],
+            "console": "integratedTerminal"
+        }
+    ]
+}
