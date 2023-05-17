@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QListWidgetItem, QDialog, 
 from PyQt5.uic import loadUiType
 import sys
 
+import CheckUpdate
+
 
 ## This bit is for checking wich modules are actually used på the program.
 # import builtins
@@ -24,9 +26,13 @@ form_class = loadUiType("./mainWindow.ui")[0]  # Load the UI
 dialog_class = loadUiType("./dialogRenameFile.ui")[0]  # Load the UI
 
 
+#################### First Priority ####################
+
 # TODO NEXT SelfUpdate script that fetches the latest release from Github
 
 # TODO "About" section that contains version information for the program.
+
+#################### Second Priority ####################
 
 # TODO Executable and MSI files.
     # TODO Assets for appearance. Icons etc.
@@ -34,6 +40,8 @@ dialog_class = loadUiType("./dialogRenameFile.ui")[0]  # Load the UI
 # TODO HEIC and HEIV files should be converted to JPG or similar. Create a dialog box for this.
 
 # TODO Give items background colors. # item.setBackground("black")
+
+#################### Third Priority ####################
 
 # TODO Make sure Tab Order is correct in QtDesigner
 
@@ -340,10 +348,13 @@ fileList = []
 folderPathImport = ""
 folderPathExport = ""
 imagesToImport = []
+
+if CheckUpdate.check_new_version():
+    print("New Verion Available")
+    CheckUpdate.install_update()
+
+# Start main window:
 app = QApplication(sys.argv)
-# ResolutionDialog().show()
-# dialogAnswer = dialogResizeImage()
-# print(dialogAnswer)
 myWindow = MyWindowClass(None)
 myWindow.show()
 

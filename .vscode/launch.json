@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: Import.Py",
             "type": "python",
             "request": "launch",
@@ -17,7 +25,29 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/setup.py",
-            "args": ["build_exe"],
+            "args": [
+                "build_exe"
+            ],
+            "console": "integratedTerminal"
+        },
+        // {
+        //     "name": "Installer Setup.py ",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/Installer/setup.py",
+        //     "args": [
+        //         ""
+        //     ],
+        //     "console": "integratedTerminal"
+        // },
+        {
+            "name": "Dist_Zip Setup.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/setup.py",
+            "args": [
+                "create_zip"
+            ],
             "console": "integratedTerminal"
         },
         {
@@ -25,17 +55,10 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/setup.py",
-            "args": ["bdist_msi"],
+            "args": [
+                "bdist_msi"
+            ],
             "console": "integratedTerminal"
-        
         },
-        {
-            "name": "Dist_Zip Setup.py",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/setup.py",
-            "args": ["create_zip"],
-            "console": "integratedTerminal"
-        }
     ]
 }

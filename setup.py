@@ -81,6 +81,7 @@ setup(
     name='Super Simple Image Importer',
     version='0.1',
     description='Super Simple Image Importer',
+    author= "Walmann@Github",
     executables=[
         Executable(
             'Importer.py',
@@ -90,10 +91,10 @@ setup(
     ],
     options={
         'build_exe': {
-            'include_files': ['dialogRenameFile.ui', 'mainWindow.ui', './Assets/icon.ico'],
+            'include_files': ['dialogRenameFile.ui', 'mainWindow.ui', './Assets/icon.ico', "CheckUpdate.py"],
             'packages': ["PyQt5.QtCore", "PyQt5.QtGui", "PyQt5.QtWidgets", "PyQt5.uic"],
             # "includes": ["PyQt5.QtCore", "PyQt5.QtGui", "PyQt5.QtWidgets", "PyQt5.uic"]
-            'excludes': ["tkinter", "PyQt6", "unittest"],
+            # 'excludes': ["tkinter", "PyQt6", "unittest", "mail"],
             "optimize": 2
         },
         'bdist_msi': {
