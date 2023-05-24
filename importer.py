@@ -5,11 +5,20 @@ from pathlib import Path as PathlibPath
 from PIL import Image
 from PyQt5.QtCore import Qt, QUrl, QStandardPaths, QSize
 from PyQt5.QtGui import QImageReader, QPixmap, QIcon
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QListWidgetItem, QDialog, QLabel, QVBoxLayout, QPushButton, QApplication
+from PyQt5.QtWidgets import (
+    QMainWindow,
+    QFileDialog,
+    QListWidgetItem,
+    QDialog,
+    QLabel,
+    QVBoxLayout,
+    QPushButton,
+    QApplication,
+)
 from PyQt5.uic import loadUiType
 import sys
 
-import CheckUpdate
+# import CheckUpdate
 
 
 ## This bit is for checking wich modules are actually used på the program.
@@ -35,15 +44,18 @@ dialog_class = loadUiType("./dialogRenameFile.ui")[0]  # Load the UI
 #################### Second Priority ####################
 
 # TODO Executable and MSI files.
-    # TODO Assets for appearance. Icons etc.
+# TODO Assets for appearance. Icons etc.
 
-# TODO HEIC and HEIV files should be converted to JPG or similar. Create a dialog box for this.
+# TODO HEIC and HEIV files should be converted to JPG or similar. 
+#      Create a dialog box for this.
 
 # TODO Give items background colors. # item.setBackground("black")
 
 #################### Third Priority ####################
 
-# TODO Make sure Tab Order is correct in QtDesigner
+# TODO Make sure Tab Order is correct in QtDesigner. 
+# As in the order of items to cycle thrugh when pressing TAB
+
 
 class MyWindowClass(QMainWindow, form_class):
     def __init__(self, parent=None):
@@ -56,7 +68,6 @@ class MyWindowClass(QMainWindow, form_class):
         self.fileList = []
         self.searchingForFile = False
 
-        
     def selectImportFolder(self):
         global folderPathImport
         folderPathImport = QFileDialog.getExistingDirectoryUrl(
@@ -67,17 +78,18 @@ class MyWindowClass(QMainWindow, form_class):
             # options=QFileDialog.Option.ShowDirsOnly
         )
 
-
         if folderPathImport.toString() != "":
             folderPathImport = folderPathImport.toString().replace("file:///", "")
             createImagePreviewGrid(self, folderPathImport)
             self.ImportFolderField.setText(folderPathImport)
 
-
-
     def selectOutputFolder(self):
         global folderPathExport
-        dialog = QFileDialog(self, "Velg mape for importering", QStandardPaths.writableLocation(QStandardPaths.PicturesLocation))
+        dialog = QFileDialog(
+            self,
+            "Velg mape for importering",
+            QStandardPaths.writableLocation(QStandardPaths.PicturesLocation),
+        )
         dialog.setFileMode(QFileDialog.Directory)
         # dialog.setOption(QFileDialog.DontUseNativeDialog, False)
         # dialog.setOption(QFileDialog.ShowDirsOnly, False)
@@ -88,14 +100,12 @@ class MyWindowClass(QMainWindow, form_class):
             except UnboundLocalError:
                 pass
 
-
     def updateImportList(self):
         # TODO Add filepath to Hover Tooltip
         global imagesToImport
         imagesToImport = []
         for item in self.ImagePreviewListWidget.selectedItems():
             imagesToImport.append(item.data(Qt.UserRole + 1))
-
 
     def startImportJob(self):
         import shutil
@@ -105,7 +115,6 @@ class MyWindowClass(QMainWindow, form_class):
 
         if len(imagesToImport) == 0:
             return False
-
 
         # Setup progressbar
         pbar = self.ExportProgressBar
@@ -118,8 +127,7 @@ class MyWindowClass(QMainWindow, form_class):
             try:
                 imageFilename = images.stem
                 ext = images.suffix
-                newImagePath = folderPathExport+"\\"+imageFilename+ext
-
+                newImagePath = folderPathExport + "\\" + imageFilename + ext
 
                 if CheckFileExists(newImagePath):
                     if renameOrSkipALL == "Ask":
@@ -137,19 +145,28 @@ class MyWindowClass(QMainWindow, form_class):
                             renameOrSkipALL = "Ask"
                         index = 1
                         while True:
-                            newImagePath = folderPathExport+"\\"+f"{imageFilename} ({index}){ext}"
+                            newImagePath = (
+                                folderPathExport
+                                + "\\"
+                                + f"{imageFilename} ({index}){ext}"
+                            )
                             if CheckFileExists(newImagePath):
                                 index += 1
                             else:
                                 break
 
                 shutil.copy2(images, newImagePath)
-                
+
                 if self.checkBoxResize.isChecked():
-                    resizeImage(image_path=newImagePath, resolution=self.SelectNewSize.currentText().replace(")", "").split("(")[1])
+                    resizeImage(
+                        image_path=newImagePath,
+                        resolution=self.SelectNewSize.currentText()
+                        .replace(")", "")
+                        .split("(")[1],
+                    )
                     # print()
 
-                pbar.setValue(index+1)
+                pbar.setValue(index + 1)
                 # print(images)
             except PermissionError as Error:
                 print(Error)
@@ -157,10 +174,6 @@ class MyWindowClass(QMainWindow, form_class):
 
                 continue
         pbar.setValue(len(imagesToImport))
-
-
-
-        
 
 
 def resizeImage(image_path, resolution):
@@ -174,7 +187,7 @@ def resizeImage(image_path, resolution):
     aspect_ratio = width / height
 
     # Parse the size string into width and height integers
-    size_parts = resolution.split('x')
+    size_parts = resolution.split("x")
     max_width = int(size_parts[0])
     max_height = int(size_parts[1])
 
@@ -202,7 +215,7 @@ def resizeImage(image_path, resolution):
 
 def writeLog(Error):
     with open("ImportLog.log", "+a") as file:
-        file.write(str(Error)+"\n")
+        file.write(str(Error) + "\n")
 
 
 def createImagePreviewGrid(self, folderPath):
@@ -211,17 +224,15 @@ def createImagePreviewGrid(self, folderPath):
     if type(folderPath) == str:
         fileListe = listAllImagePaths(self, folderPath)
 
-    
-    
     for x in fileListe:
         item = QListWidgetItem(str(x))
 
-        itemSize = QSize(200,200)
+        itemSize = QSize(200, 200)
 
         imageReader = QImageReader()
         imageReader.setFileName(str(x))
         size = imageReader.size()
-        size.scale(itemSize.width(),itemSize.height()-50, Qt.KeepAspectRatio)
+        size.scale(itemSize.width(), itemSize.height() - 50, Qt.KeepAspectRatio)
         imageReader.setScaledSize(size)
         image = imageReader.read()
 
@@ -230,21 +241,27 @@ def createImagePreviewGrid(self, folderPath):
         item.setIcon(icon)
         item.setText(str(x).split("\\")[-1])
         item.setSizeHint(itemSize)
-        item.setData(Qt.UserRole + 1, x ) 
-        
+        item.setData(Qt.UserRole + 1, x)
+
         self.ImagePreviewListWidget.addItem(item)
 
 
-
 def listAllImagePaths(self, FolderToImport):
-    
-    extensions = ('.jpg', '.jpeg', '.png', '.gif', '.tiff', '.webp', '.svg', '.raw', '.ico')
+    extensions = (
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".tiff",
+        ".webp",
+        ".svg",
+        ".raw",
+        ".ico",
+    )
     for filepath in PathlibPath(FolderToImport).glob("**/*"):
         if str(filepath).endswith(extensions):
             fileList.append(filepath)
     return fileList
-
-
 
 
 class LoadingDialog(QDialog):
@@ -259,13 +276,23 @@ class LoadingDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.addWidget(self.label)
 
-        extensions = ('.jpg', '.jpeg', '.png', '.gif', '.tiff', '.webp', '.svg', '.raw', '.ico')
+        extensions = (
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".gif",
+            ".tiff",
+            ".webp",
+            ".svg",
+            ".raw",
+            ".ico",
+        )
         self.tempList = []
         for dirpath, dirnames, filenames in walk(FolderToImport):
             for filename in filenames:
                 if filename.endswith(extensions):
                     self.tempList.append(PathJoin(dirpath, filename))
-        
+
 
 class Dialog(QDialog, dialog_class):
     def __init__(self, dialog_type=None):
@@ -279,20 +306,21 @@ class Dialog(QDialog, dialog_class):
             return False
 
     def fileExists(self):
-
         vbox = QVBoxLayout()
 
-        label = QLabel('Det finnes allerede en fil med dette navnet. Venligst velg en handling:')
+        label = QLabel(
+            "Det finnes allerede en fil med dette navnet. Venligst velg en handling:"
+        )
         vbox.addWidget(label)
 
         # Rename files
         hboxRename = QVBoxLayout()
 
-        btn_rename = QPushButton('Gi nytt navn til denne filen')
+        btn_rename = QPushButton("Gi nytt navn til denne filen")
         btn_rename.clicked.connect(self.rename)
         hboxRename.addWidget(btn_rename)
 
-        btn_rename_all = QPushButton('Gi nytt navn til ALLE filer')
+        btn_rename_all = QPushButton("Gi nytt navn til ALLE filer")
         btn_rename_all.clicked.connect(self.rename_all)
         hboxRename.addWidget(btn_rename_all)
 
@@ -301,41 +329,41 @@ class Dialog(QDialog, dialog_class):
         # Skip Files
         hboxSkip = QVBoxLayout()
 
-        btn_skip_all = QPushButton('Hopp over ALLE filer')
+        btn_skip_all = QPushButton("Hopp over ALLE filer")
         btn_skip_all.clicked.connect(self.skip_all)
         hboxSkip.addWidget(btn_skip_all)
 
-        btn_skip = QPushButton('Hopp over fil')
+        btn_skip = QPushButton("Hopp over fil")
         btn_skip.clicked.connect(self.skip)
         hboxSkip.addWidget(btn_skip)
 
         vbox.addLayout(hboxSkip)
 
         # Cancel
-        btn_cancel = QPushButton('Avbryt')
+        btn_cancel = QPushButton("Avbryt")
         btn_cancel.clicked.connect(self.cancel)
         vbox.addWidget(btn_cancel)
 
         self.setLayout(vbox)
 
     def skip_all(self):
-        self.button_pressed = 'skip_all'
+        self.button_pressed = "skip_all"
         self.accept()
 
     def skip(self):
-        self.button_pressed = 'skip'
+        self.button_pressed = "skip"
         self.accept()
 
     def rename(self):
-        self.button_pressed = 'rename'
+        self.button_pressed = "rename"
         self.accept()
 
     def rename_all(self):
-        self.button_pressed = 'rename_all'
+        self.button_pressed = "rename_all"
         self.accept()
 
     def cancel(self):
-        self.button_pressed = 'cancel'
+        self.button_pressed = "cancel"
         self.reject()
 
     def exec_(self):
@@ -343,15 +371,14 @@ class Dialog(QDialog, dialog_class):
         return self.button_pressed
 
 
-
 fileList = []
 folderPathImport = ""
 folderPathExport = ""
 imagesToImport = []
 
-if CheckUpdate.check_new_version():
-    print("New Verion Available")
-    CheckUpdate.install_update()
+# if CheckUpdate.check_new_version():
+#     print("New Verion Available")
+#     CheckUpdate.install_update()
 
 # Start main window:
 app = QApplication(sys.argv)
