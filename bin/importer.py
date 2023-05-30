@@ -393,9 +393,8 @@ myWindow = MyWindowClass(None)
 myWindow.show()
 
 #Check for update: 
-# TODO NEXT Check for updates, download them, then run install package.
 is_update_available = check_for_updates()
-if not is_update_available[0]:
+if is_update_available[0]:
     from fetch_and_install_update import download_and_install_latest_release
     download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
 else:

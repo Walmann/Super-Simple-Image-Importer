@@ -35,5 +35,5 @@ def check_for_updates():
         return [True, version_info_local, version_info_remote]
     else:
         # print(f'Du har allerede den siste versjonen ({current_version}).')
-        return [False,0,0]
+        return [False, version_info_local, version_info_remote]
 check_for_updates()

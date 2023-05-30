@@ -8,5 +8,7 @@ __pycache__
 Update/
 Installer/Exe_Build
 Installer/Exe_Dest
+Installer/Setup_Build
 github_token.txt
 SSII.spec
+Installer/Setup_Build/SuperSimpleImageImporterSetup.exe

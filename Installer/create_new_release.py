@@ -118,5 +118,5 @@ run_pyinstaller(pyinstaller_settings_file, output_folder)
 # Run Inno Setup
 run_inno_setup(innosetup_file, inno_setup_exe)
 
-# github_token = get_github_token(token_file)
-# create_github_release(version_number, innosetup_file, github_token)
+github_token = get_github_token(token_file)
+create_github_release(version_number, innosetup_file, github_token)
