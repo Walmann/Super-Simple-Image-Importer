@@ -12,8 +12,8 @@ pyinstaller
 --console 
 --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico" 
 --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;app/Assets/" 
---add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/importer.py;app/" 
---add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/mainWindow.ui;app/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/setup.py"
+--add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py;app/" 
+--add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/ui/mainwindow.ui;app/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/setup.py"
 
 <!-- Build EXE: ```python setup.py build_exe```
 

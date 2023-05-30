@@ -6,3 +6,7 @@ ImportLog.log
 .venv
 __pycache__
 Update/
+Installer/Exe_Build
+Installer/Exe_Dest
+github_token.txt
+SSII.spec

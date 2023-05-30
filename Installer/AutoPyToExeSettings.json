@@ -1,0 +1,101 @@
+{
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": false
+  },
+  {
+   "optionDest": "console",
+   "value": false
+  },
+  {
+   "optionDest": "icon_file",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico"
+  },
+  {
+   "optionDest": "name",
+   "value": "SSII"
+  },
+  {
+   "optionDest": "ascii",
+   "value": false
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "version_file",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/version_info.txt"
+  },
+  {
+   "optionDest": "embed_manifest",
+   "value": true
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "win_private_assemblies",
+   "value": false
+  },
+  {
+   "optionDest": "win_no_prefer_redirects",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "argv_emulation",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/"
+  },
+  {
+   "optionDest": "collect_submodules",
+   "value": "win32api"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
+}

@@ -1,1 +1,0 @@
-# This folder only contains script that are not needed, but I'm not sure if i can delete yet.

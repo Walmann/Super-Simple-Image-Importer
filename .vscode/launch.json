@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -13,23 +13,31 @@
             "justMyCode": true
         },
         {
-            "name": "Python: Import.Py",
+            "name": "Import.Py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/Importer.py",
+            "program": "${workspaceFolder}/bin/importer.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
         {
-            "name": "BUILD_EXE Setup.py ",
+            "name": "Create New Release.Py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/setup.py",
-            "args": [
-                "build_exe"
-            ],
-            "console": "integratedTerminal"
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
         },
+        // {
+        //     "name": "BUILD_EXE Setup.py ",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/setup.py",
+        //     "args": [
+        //         "build_exe"
+        //     ],
+        //     "console": "integratedTerminal"
+        // },
         // {
         //     "name": "Installer Setup.py ",
         //     "type": "python",
@@ -40,25 +48,25 @@
         //     ],
         //     "console": "integratedTerminal"
         // },
-        {
-            "name": "Dist_Zip Setup.py",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/setup.py",
-            "args": [
-                "create_zip"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "BDLIST_MSI Setup.py ",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/setup.py",
-            "args": [
-                "bdist_msi"
-            ],
-            "console": "integratedTerminal"
-        },
+        // {
+        //     "name": "Dist_Zip Setup.py",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/setup.py",
+        //     "args": [
+        //         "create_zip"
+        //     ],
+        //     "console": "integratedTerminal"
+        // },
+        // {
+        //     "name": "BDLIST_MSI Setup.py ",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/setup.py",
+        //     "args": [
+        //         "bdist_msi"
+        //     ],
+        //     "console": "integratedTerminal"
+        // },
     ]
 }
