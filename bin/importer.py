@@ -39,22 +39,14 @@ dialog_class = loadUiType("./ui/dialogRenameFile.ui")[0]  # Load the UI
 print()
 #################### First Priority ####################
 
-# TODO FIX Win32api kommer ikke med i auto-py-to-exe. Fiks dette
-
-# TODO NEXT SelfUpdate script that fetches the latest release from Github
-
 # TODO "About" section that contains version information for the program.
+
+# TODO HEIC and HEIV files should be converted to JPG or similar. Done via checkbox next to resize button.
 
 #################### Second Priority ####################
 
-# TODO Executable and MSI files.
-
-# TODO Assets for appearance. Icons etc.
-
 # TODO Error handling inside the program
 
-# TODO HEIC and HEIV files should be converted to JPG or similar. 
-#      Create a dialog box for this.
 
 # TODO Give items background colors. # item.setBackground("black")
 
@@ -171,8 +163,15 @@ class MyWindowClass(QMainWindow, form_class):
                         .replace(")", "")
                         .split("(")[1],
                     )
+                if self.checkBoxConvertFormat.isChecked(): #TODO NEXT Convert images if this checkbox is enabled :) 
+                    resizeImage(
+                        image_path=newImagePath,
+                        resolution=self.SelectNewSize.currentText()
+                        .replace(")", "")
+                        .split("(")[1],
+                    )
                     # print()
-
+                
                 pbar.setValue(index + 1)
                 # print(images)
             except PermissionError as Error:
