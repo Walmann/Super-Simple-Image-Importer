@@ -97,7 +97,7 @@ def create_github_release(version_number, innosetup_file, github_token):
 
 
 # Configuration
-version_number = "0.0.2.0"
+version_number = "0.0.2.1"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"

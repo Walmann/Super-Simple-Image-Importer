@@ -94,7 +94,7 @@ class MyWindowClass(QMainWindow, form_class):
         global folderPathExport
         dialog = QFileDialog(
             self,
-            "Velg mape for importering",
+            "Velg mappe for importering",
             QStandardPaths.writableLocation(QStandardPaths.PicturesLocation),
         )
         dialog.setFileMode(QFileDialog.Directory)
@@ -254,6 +254,14 @@ def createImagePreviewGrid(self, folderPath):
 
 
 def listAllImagePaths(self, FolderToImport):
+    """List all images in folder, and subfolders
+
+    Args:
+        FolderToImport (str): Path for folder to search
+
+    Returns:
+        dict: dict of all images found.
+    """
     extensions = (
         ".jpg",
         ".jpeg",
