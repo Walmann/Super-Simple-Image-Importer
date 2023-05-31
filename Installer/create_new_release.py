@@ -11,8 +11,9 @@ def update_version_info(version_number, version_info_file):
         content = f.read()
         content = re.sub(r'filevers=\([0-9]+, [0-9]+, [0-9]+, [0-9]+\)', f'filevers=({version_number.replace(".", ", ")})', content)
         content = re.sub(r'prodvers=\([0-9]+, [0-9]+, [0-9]+, [0-9]+\)', f'prodvers=({version_number.replace(".", ", ")})', content)
-        content = re.sub(r"StringStruct\('FileVersion', 'V[0-9.]+'\)", f"StringStruct('FileVersion', 'V{version_number}')", content)
-        content = re.sub(r"StringStruct\('ProductVersion', 'V[0-9.]+'\)", f"StringStruct('ProductVersion', 'V{version_number}')", content)
+        content = re.sub(r"StringStruct\('FileVersion', '[0-9.]+.[0-9]+.[0-9]+.[0-9]+'\)", f"StringStruct('FileVersion', '{version_number}')", content)
+        content = re.sub(r"StringStruct\('ProductVersion', '[0-9.]+.[0-9]+.[0-9]+.[0-9]+'\)", f"StringStruct('ProductVersion', '{version_number}')", content)
+
 
     with open(version_info_file, "w") as f:
         f.write(content)

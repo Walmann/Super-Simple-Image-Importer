@@ -16,11 +16,11 @@ VSVersionInfo(
         '040904B0',
         [StringStruct('CompanyName', 'Walmann@Github'),
         StringStruct('FileDescription', 'A Super Simple Image Importer. Made to be ekstremly easy to use.'),
-        StringStruct('FileVersion', '1.0.0.0'),
+        StringStruct('FileVersion', '0.0.2.0'),
         StringStruct('InternalName', 'Super Simple Image Importer'),
         StringStruct('OriginalFilename', 'SSII'),
         StringStruct('ProductName', 'Super Simple Image Importer'),
-        StringStruct('ProductVersion', '1.0.0.0')])
+        StringStruct('ProductVersion', '0.0.2.0')])
       ]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])
   ]

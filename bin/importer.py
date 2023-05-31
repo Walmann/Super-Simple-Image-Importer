@@ -387,17 +387,18 @@ imagesToImport = []
 #     print("New Verion Available")
 #     CheckUpdate.install_update()
 
-# Start main window:
 app = QApplication(sys.argv)
-myWindow = MyWindowClass(None)
-myWindow.show()
-
 #Check for update: 
 is_update_available = check_for_updates()
 if is_update_available[0]:
     from fetch_and_install_update import download_and_install_latest_release
     download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
-else:
-    app.exec_()
+
+# Start main window:
+myWindow = MyWindowClass(None)
+myWindow.show()
+sys.exit(app.exec_())
+# else: 
+
 
 
