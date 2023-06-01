@@ -121,20 +121,23 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContents</enum>
            </property>
            <property name="autoScrollMargin">
-            <number>8</number>
+            <number>64</number>
            </property>
            <property name="dragDropMode">
-            <enum>QAbstractItemView::DragDrop</enum>
+            <enum>QAbstractItemView::NoDragDrop</enum>
            </property>
            <property name="defaultDropAction">
             <enum>Qt::IgnoreAction</enum>
            </property>
            <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
+            <enum>QAbstractItemView::ContiguousSelection</enum>
            </property>
            <property name="iconSize">
             <size>
@@ -159,6 +162,9 @@
            </property>
            <property name="viewMode">
             <enum>QListView::IconMode</enum>
+           </property>
+           <property name="uniformItemSizes">
+            <bool>true</bool>
            </property>
            <property name="wordWrap">
             <bool>true</bool>

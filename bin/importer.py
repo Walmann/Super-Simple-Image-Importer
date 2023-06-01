@@ -1,6 +1,7 @@
 from os import walk
 from os.path import exists as CheckFileExists
 from os.path import join as PathJoin
+from os.path import splitext as PathSplitText
 from pathlib import Path as PathlibPath
 from PIL import Image
 from PyQt5.QtCore import Qt, QUrl, QStandardPaths, QSize
@@ -42,6 +43,8 @@ print()
 # TODO "About" section that contains version information for the program.
 
 # TODO HEIC and HEIV files should be converted to JPG or similar. Done via checkbox next to resize button.
+
+# TODO Errors if Input, Output, or selected images is empty
 
 #################### Second Priority ####################
 
@@ -164,13 +167,7 @@ class MyWindowClass(QMainWindow, form_class):
                         .split("(")[1],
                     )
                 if self.checkBoxConvertFormat.isChecked(): #TODO NEXT Convert images if this checkbox is enabled :) 
-                    resizeImage(
-                        image_path=newImagePath,
-                        resolution=self.SelectNewSize.currentText()
-                        .replace(")", "")
-                        .split("(")[1],
-                    )
-                    # print()
+                    newImagePath = convert_to_png(image_path=newImagePath)
                 
                 pbar.setValue(index + 1)
                 # print(images)
@@ -180,6 +177,12 @@ class MyWindowClass(QMainWindow, form_class):
 
                 continue
         pbar.setValue(len(imagesToImport))
+
+def convert_to_png(image_path):
+    image = Image.open(image_path)
+    new_image_path = PathSplitText(image_path)[0] + '.png'
+    image.save(new_image_path)
+    return new_image_path
 
 
 def resizeImage(image_path, resolution):
@@ -406,6 +409,3 @@ myWindow = MyWindowClass(None)
 myWindow.show()
 sys.exit(app.exec_())
 # else: 
-
-
-
