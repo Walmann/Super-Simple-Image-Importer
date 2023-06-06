@@ -19,6 +19,7 @@ from PyQt5.uic import loadUiType
 import sys
 
 from update_check import check_for_updates
+from handle_settings import SettingsHandlerClass 
 
 # import CheckUpdate
 
@@ -36,7 +37,11 @@ from update_check import check_for_updates
 form_class = loadUiType("./ui/mainwindow.ui")[0]  # Load the UI
 dialog_class = loadUiType("./ui/dialogRenameFile.ui")[0]  # Load the UI
 
-print()
+
+#################### For This Branch ####################
+# TODO Reset settings
+
+
 #################### First Priority ####################
 
 # TODO FIX Win32api kommer ikke med i auto-py-to-exe. Fiks dette
@@ -70,6 +75,19 @@ class MyWindowClass(QMainWindow, form_class):
         self.setupUi(self)
         # self.setWindowTitle("Super Simple Image Importer")
         # self.set
+        
+        if settingsHandler.HasDefaultInputfolder() or settingsHandler.HasDefaultOutputfolder():
+            print("Test!")
+            global folderPathImport
+            folderPathImport = settingsHandler.LoadSetting("DefaultInputfolder")
+            self.OutputFolderField.setText(str(folderPathImport))
+            
+            
+            global folderPathExport
+            folderPathExport = settingsHandler.LoadSetting("DefaultOutputFolder")
+            self.OutputFolderField.setText(str(folderPathExport))
+
+
 
         self.ExportProgressBar.hide()
         self.fileList = []
@@ -90,8 +108,13 @@ class MyWindowClass(QMainWindow, form_class):
             createImagePreviewGrid(self, folderPathImport)
             self.ImportFolderField.setText(folderPathImport)
 
+            # if self.SetDefaultExportPath.isChecked():
+            #     settingsHandler.SaveSetting("DefaultInputfolder", str(folderPathImport))
+            #     print("HellO!!")
+
     def selectOutputFolder(self):
         global folderPathExport
+
         dialog = QFileDialog(
             self,
             "Velg mappe for importering",
@@ -104,9 +127,13 @@ class MyWindowClass(QMainWindow, form_class):
             folderPathExport = dialog.selectedFiles()[0]
             try:
                 self.OutputFolderField.setText(str(folderPathExport))
+
+
+
+
             except UnboundLocalError:
                 pass
-
+    
     def updateImportList(self):
         # TODO Add filepath to Hover Tooltip
         global imagesToImport
@@ -123,6 +150,11 @@ class MyWindowClass(QMainWindow, form_class):
         if len(imagesToImport) == 0:
             return False
 
+        if self.SetDefaultExportPath.isChecked():
+            settingsHandler.SaveSetting("DefaultOutputFolder", str(folderPathExport))
+            print("HellO!!")
+
+
         # Setup progressbar
         pbar = self.ExportProgressBar
         pbar.show()
@@ -130,7 +162,7 @@ class MyWindowClass(QMainWindow, form_class):
         pbar.setMaximum(len(imagesToImport))
 
         renameOrSkipALL = "Ask"  # "skipAll", "renameAll", "Ask"
-        for index, images in enumerate(imagesToImport):
+        for list_index, images in enumerate(imagesToImport):
             try:
                 imageFilename = images.stem
                 ext = images.suffix
@@ -173,8 +205,10 @@ class MyWindowClass(QMainWindow, form_class):
                     )
                     # print()
 
-                pbar.setValue(index + 1)
+                # pbar.setValue(index + 1)
                 # print(images)
+                # print(f"Index: {list_index}")
+                pbar.setValue(list_index + 1)
             except PermissionError as Error:
                 print(Error)
                 writeLog(Error)
@@ -390,6 +424,7 @@ fileList = []
 folderPathImport = ""
 folderPathExport = ""
 imagesToImport = []
+settingsHandler = SettingsHandlerClass()
 
 # if CheckUpdate.check_new_version():
 #     print("New Verion Available")
@@ -401,6 +436,7 @@ is_update_available = check_for_updates()
 if is_update_available[0]:
     from fetch_and_install_update import download_and_install_latest_release
     download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
+
 
 # Start main window:
 myWindow = MyWindowClass(None)
