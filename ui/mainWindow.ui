@@ -131,7 +131,7 @@
             <number>64</number>
            </property>
            <property name="dragDropMode">
-            <enum>QAbstractItemView::NoDragDrop</enum>
+            <enum>QAbstractItemView::DragDrop</enum>
            </property>
            <property name="defaultDropAction">
             <enum>Qt::IgnoreAction</enum>
@@ -250,7 +250,7 @@
               <x>300</x>
               <y>20</y>
               <width>75</width>
-              <height>24</height>
+              <height>31</height>
              </rect>
             </property>
             <property name="text">
@@ -342,6 +342,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QPushButton" name="Button_SetDefaultExportPath">
+            <property name="geometry">
+             <rect>
+              <x>380</x>
+              <y>20</y>
+              <width>121</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Sett som standard</string>
+            </property>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -428,11 +441,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Button_SetDefaultExportPath</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Button_setDefaultExportPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>726</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>selectOutputFolder()</slot>
   <slot>startImportJob()</slot>
   <slot>selectImportFolder()</slot>
   <slot>updateImportList()</slot>
+  <slot>Button_setDefaultExportPath()</slot>
  </slots>
 </ui>
