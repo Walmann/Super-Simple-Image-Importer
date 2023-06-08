@@ -5,13 +5,7 @@ Check the Releases page:
 # Todo list: 
 
 ## For This Branch
-- Toolbar for Settings and About section.
-- "About" section that contains version information for the program.
 
-### Settings
-- Reset Settings
-- Configure defaults
-- Export settings, as in automatically sort folders into years, months etc.
 
 ## First Priority
 -  Reset settings
