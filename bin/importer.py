@@ -1,6 +1,7 @@
 from os import walk
 from os.path import exists as CheckFileExists
 from os.path import join as PathJoin
+from os.path import splitext as PathSplitText
 from pathlib import Path as PathlibPath
 from PIL import Image
 from PyQt5.QtCore import Qt, QUrl, QStandardPaths, QSize
@@ -200,9 +201,10 @@ class MyWindowClass(QMainWindow, form_class):
                         .replace(")", "")
                         .split("(")[1],
                     )
-                    # print()
-
-                # pbar.setValue(index + 1)
+                if self.checkBoxConvertFormat.isChecked(): #TODO NEXT Convert images if this checkbox is enabled :) 
+                    newImagePath = convert_to_png(image_path=newImagePath)
+                
+                pbar.setValue(index + 1)
                 # print(images)
                 # print(f"Index: {list_index}")
                 pbar.setValue(list_index + 1)
@@ -212,6 +214,12 @@ class MyWindowClass(QMainWindow, form_class):
 
                 continue
         pbar.setValue(len(imagesToImport))
+
+def convert_to_png(image_path):
+    image = Image.open(image_path)
+    new_image_path = PathSplitText(image_path)[0] + '.png'
+    image.save(new_image_path)
+    return new_image_path
 
 
 def resizeImage(image_path, resolution):
@@ -440,6 +448,3 @@ myWindow = MyWindowClass(None)
 myWindow.show()
 sys.exit(app.exec_())
 # else: 
-
-
-

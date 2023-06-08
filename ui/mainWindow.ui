@@ -121,11 +121,14 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContents</enum>
            </property>
            <property name="autoScrollMargin">
-            <number>8</number>
+            <number>64</number>
            </property>
            <property name="dragDropMode">
             <enum>QAbstractItemView::DragDrop</enum>
@@ -134,7 +137,7 @@
             <enum>Qt::IgnoreAction</enum>
            </property>
            <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
+            <enum>QAbstractItemView::ContiguousSelection</enum>
            </property>
            <property name="iconSize">
             <size>
@@ -159,6 +162,9 @@
            </property>
            <property name="viewMode">
             <enum>QListView::IconMode</enum>
+           </property>
+           <property name="uniformItemSizes">
+            <bool>true</bool>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -276,7 +282,7 @@
              <string>Start Import</string>
             </property>
            </widget>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="resizeWidget" native="true">
             <property name="geometry">
              <rect>
               <x>700</x>
@@ -292,6 +298,13 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <widget class="QCheckBox" name="checkBoxConvertFormat">
+               <property name="text">
+                <string>Konverter bilder til PNG</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QCheckBox" name="checkBoxResize">
                <property name="text">
