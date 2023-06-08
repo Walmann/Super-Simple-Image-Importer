@@ -39,27 +39,20 @@ dialog_class = loadUiType("./ui/dialogRenameFile.ui")[0]  # Load the UI
 
 
 #################### For This Branch ####################
-# TODO Reset settings
+
 
 
 #################### First Priority ####################
 
-# TODO FIX Win32api kommer ikke med i auto-py-to-exe. Fiks dette
-
-# TODO NEXT SelfUpdate script that fetches the latest release from Github
+# TODO Reset settings
 
 # TODO "About" section that contains version information for the program.
 
 #################### Second Priority ####################
 
-# TODO Executable and MSI files.
-
-# TODO Assets for appearance. Icons etc.
+# TODO Make the program prettier
 
 # TODO Error handling inside the program
-
-# TODO HEIC and HEIV files should be converted to JPG or similar. 
-#      Create a dialog box for this.
 
 # TODO Give items background colors. # item.setBackground("black")
 
