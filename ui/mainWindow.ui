@@ -244,7 +244,7 @@
               <x>300</x>
               <y>20</y>
               <width>75</width>
-              <height>24</height>
+              <height>31</height>
              </rect>
             </property>
             <property name="text">
@@ -329,13 +329,13 @@
              </item>
             </layout>
            </widget>
-           <widget class="QCheckBox" name="SetDefaultExportPath">
+           <widget class="QPushButton" name="Button_SetDefaultExportPath">
             <property name="geometry">
              <rect>
               <x>380</x>
               <y>20</y>
-              <width>161</width>
-              <height>20</height>
+              <width>121</width>
+              <height>31</height>
              </rect>
             </property>
             <property name="text">
@@ -428,11 +428,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Button_SetDefaultExportPath</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Button_setDefaultExportPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>726</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>selectOutputFolder()</slot>
   <slot>startImportJob()</slot>
   <slot>selectImportFolder()</slot>
   <slot>updateImportList()</slot>
+  <slot>Button_setDefaultExportPath()</slot>
  </slots>
 </ui>

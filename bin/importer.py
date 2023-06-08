@@ -134,6 +134,10 @@ class MyWindowClass(QMainWindow, form_class):
             except UnboundLocalError:
                 pass
     
+    def Button_setDefaultExportPath(self):
+        settingsHandler.SaveSetting("DefaultOutputFolder", str(folderPathExport))
+        print("HellO!!")
+
     def updateImportList(self):
         # TODO Add filepath to Hover Tooltip
         global imagesToImport
@@ -150,9 +154,9 @@ class MyWindowClass(QMainWindow, form_class):
         if len(imagesToImport) == 0:
             return False
 
-        if self.SetDefaultExportPath.isChecked():
-            settingsHandler.SaveSetting("DefaultOutputFolder", str(folderPathExport))
-            print("HellO!!")
+        # if self.SetDefaultExportPath.isChecked():
+        #     settingsHandler.SaveSetting("DefaultOutputFolder", str(folderPathExport))
+        #     print("HellO!!")
 
 
         # Setup progressbar
