@@ -13,6 +13,14 @@
             "justMyCode": true
         },
         {
+            "name": "All Scripts Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Import.Py",
             "type": "python",
             "request": "launch",
