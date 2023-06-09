@@ -15,6 +15,7 @@ Check the Releases page:
 - Make the program prettier
 - Error handling inside the program
 - Give items background colors. # item.setBackground("black")
+- Make it possible to translate the program to english and other languages.
 
 ## Third Priority
 
