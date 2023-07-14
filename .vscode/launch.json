@@ -17,7 +17,7 @@
             "name": "test.Py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/test.py",
+            "program": "${workspaceFolder}/src/bin/test.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -25,7 +25,7 @@
             "name": "app.Py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/app.py",
+            "program": "${workspaceFolder}/src/bin/app.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "qt": "auto",

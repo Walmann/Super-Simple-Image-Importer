@@ -63,7 +63,7 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 import sys
 import os
 import time
-import debugpy
+# import debugpy
 
 
 from handler_import_path import widget_select_device
@@ -112,7 +112,7 @@ class MainWindow(QMainWindow):
     def done_selecting_device(self, selected_device):
     
         if selected_device["device_id"] == "PC":
-            
+            self.mounted_import_path = {'drive_letter': 'C', 'drive_name': 'MineBilder', 'drive_path': f'os.path.join(os.environ["USERPROFILE"], "Pictures")'}
             # FUTURE Get Folder selector thing here!
             print( "TODO Get Folder selector thing here.")
         else:

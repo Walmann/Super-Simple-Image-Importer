@@ -31,7 +31,8 @@ def update_innosetup_version(version_number, innosetup_file):
 
 def run_pyinstaller(pyinstaller_settings_file, output_folder):
     # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"'
-    pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./Assets;Assets/" --collect-submodules "win32api" --add-data "./ui;ui/" --add-data "./bin;bin/"  "./bin/importer.py"'
+    # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/importer.py"'
+    pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/app.py"'
     subprocess.run(pyinstaller_command, shell=True)
         
     # Delete contents of the output folder
@@ -97,7 +98,7 @@ def create_github_release(version_number, innosetup_file, github_token):
 
 
 # Configuration
-version_number = "0.0.2.1"
+version_number = "0.0.3.0"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"

@@ -55,7 +55,7 @@ def fetch_devices():
     """
     re_pattern = "(Connection .*?:).*?(\|--.*?\])"
     # re_pattern = "\|--.*?\]"
-    Output = subprocess.check_output(["./bin/mtpmount-x64.exe", "list", "available"])
+    Output = subprocess.check_output(["./src/bin/mtpmount-x64.exe", "list", "available"]) # TODO NEXT How to handle this in coding and practical use? 
 
     found_devices_raw = re.findall(re_pattern, str(Output))
 
