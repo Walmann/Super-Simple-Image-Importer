@@ -9,6 +9,7 @@ Check the Releases page:
 
 ## First Priority
 -  Reset settings
+-  "About" section that contains version information for the program.
 
 ## Second Priority
 

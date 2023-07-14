@@ -12,3 +12,4 @@ Installer/Setup_Build
 github_token.txt
 SSII.spec
 Installer/Setup_Build/
+WorkQueue.json
