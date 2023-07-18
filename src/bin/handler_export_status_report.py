@@ -45,7 +45,7 @@ class Export_status_report(QMainWindow):
 
 
         self.exitButton = QPushButton()
-        self.exitButton.clicked.connect(self.ExitProgram)
+        self.exitButton.clicked.connect(QApplication.quit)
         self.exitButton.setText("Exit Program")
         layout.addWidget(self.exitButton)
 
@@ -54,6 +54,3 @@ class Export_status_report(QMainWindow):
         centralWidget = QWidget()
         centralWidget.setLayout(layout)
         self.setCentralWidget(centralWidget)
-
-    def ExitProgram(self):
-        sys.exit()
