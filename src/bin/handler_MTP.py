@@ -10,11 +10,6 @@ def unmount_MTP_device(device=None, unmount_all=True):
             pass
         device = fetch_devices()
 
-    # BUG Sometimes i get an exitcode 9. Figure this out.
-    # for entity in device:
-    #     subprocess.check_output(["./bin/mtpmount-x64.exe", "unmount", f"#{device[entity]['device_id']}"])
-    # # print()
-
 
 def mount_MTP_device(device):
     """Mounts MTP device from the "device" arg
@@ -55,7 +50,7 @@ def fetch_devices():
     """
     re_pattern = "(Connection .*?:).*?(\|--.*?\])"
     # re_pattern = "\|--.*?\]"
-    Output = subprocess.check_output(["./src/bin/mtpmount-x64.exe", "list", "available"]) # TODO NEXT How to handle this in coding and practical use? 
+    Output = subprocess.check_output(["./bin/mtpmount-x64.exe", "list", "available"])
 
     found_devices_raw = re.findall(re_pattern, str(Output))
 
