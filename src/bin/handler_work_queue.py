@@ -97,12 +97,12 @@ class Work_queue(QWidget):
         prefix = os.path.join(os.environ["USERPROFILE"], "Pictures")
         
         fullUrl = os.path.join(prefix)
+        dateTimeSorting = datetime.now().strftime(job['FolderStructureSelection'])
 
         if job["FolderStructureNamingMethod"] == "subFolders":
-            dateTimeSorting = datetime.now().strftime(job['FolderStructureSelection'])
-            fullUrl = os.path.join(prefix, dateTimeSorting, job['FolderName'])
+            fullUrl = os.path.join(prefix, dateTimeSorting.replace("-","\\"), job['FolderName'])
         elif job["FolderStructureNamingMethod"] == "direct":
-            fullUrl = os.path.join(prefix, job["FolderName"])
+            fullUrl = os.path.join(prefix, dateTimeSorting, job['FolderName'])
         
         return fullUrl
 
