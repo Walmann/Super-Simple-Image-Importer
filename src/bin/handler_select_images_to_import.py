@@ -69,7 +69,6 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 import sys
 import os
 import time
-import debugpy
 
 class ImageLoader:
     def __init__(self):
@@ -122,7 +121,7 @@ class WorkerLoadingThumbnails(QRunnable): # OLD ORIGINAL
         '''
         # if item.thumbnail is None:
         path = self.item.filePath
-
+        QImageReader.setAllocationLimit(0)
         image = QImage(path)
         thumbnail = image.scaled(80,80,Qt.AspectRatioMode.KeepAspectRatio,Qt.TransformationMode.SmoothTransformation,)
         self.item.setThumbnail(thumbnail)
@@ -216,6 +215,9 @@ class GridItem(QGraphicsWidget):
         self.date = self.path[1]
         self.filename = self.path[2]
 
+        # TODO Optimize the rendering. When it loads it laggs.
+        self.setCacheMode(QGraphicsWidget.DeviceCoordinateCache)
+
         # Enable hover events and set tooltip
         self.setAcceptHoverEvents(True)
         self.setToolTip(self.filePath)
@@ -243,7 +245,7 @@ class GridItem(QGraphicsWidget):
         path = super().shape()
         # Define a custom shape by creating a QPainterPath and adding desired geometry
         custom_shape = QPainterPath()
-        custom_shape.addRect(self.boundingRect())  # Custom clickable area (e.g., ellipse)
+        custom_shape.addRect(self.boundingRect())  # Custom clickable area
         path = custom_shape
         return path
 
@@ -313,8 +315,8 @@ class GridView(QGraphicsView):
         self.threadpool = QThreadPool()
         # self.threadpool = []
         
-        # self.threadpool.setMaxThreadCount(1)
-        # print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        self.threadpool.setMaxThreadCount(1)
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -380,8 +382,6 @@ class GridView(QGraphicsView):
                     
                         worker = WorkerLoadingThumbnails(item=item)
                         self.threadpool.start(worker)
-
-                        # BUG The threadpool keeps going when you exit the window.
         except Exception as e:
             print(e)        
             print(e)        
