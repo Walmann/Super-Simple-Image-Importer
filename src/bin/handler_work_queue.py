@@ -85,7 +85,7 @@ class Work_queue(QWidget):
 
     def start_working(self, work_queue):
         print()
-        for index , job in enumerate(work_queue): ##### TODO Foldername is missing!
+        for index , job in enumerate(work_queue):
             self.countInt.setText(f"{index +1} / {len(work_queue)}")
             jobEntry = work_queue[job]
             self.handle_job(job=jobEntry)
