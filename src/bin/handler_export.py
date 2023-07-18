@@ -188,11 +188,8 @@ class Export_jobs_widget(QMainWindow):
             elif sender == self.naming_button2:
                 self.FolderStructureNamingMethod = "direct"
         if sender == self.sort_checkbox:
-            print(self.sort_checkbox.isChecked())
-            if checked == 2:
-                self.SortIntoFolders = True
-            else:
-                self.SortIntoFolders = False
+            self.SortIntoFolders = checked
+            print(self.SortIntoFolders)
 
     def get_settings(self):
         default_sort_into_folders = True
