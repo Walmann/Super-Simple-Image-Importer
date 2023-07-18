@@ -136,10 +136,10 @@ class search_images(QWidget):
                 self.file_list.append((file_path, file_date, file_name))
                 # self.pbar.setValue(i + 1)
                 self.label_file_amount.setText(f"Files found: {file_amount}")
-                self.label_curret_file.setText(f"{file_path}") #TODO Kun filnavn, ikke hele Path.
+                self.label_curret_file.setText(f"{file_name}")
                 QApplication.processEvents()
         self.file_list = sorted(self.file_list, key=lambda x: x[1])
-        # return self.file_list  # BUG Possible bug is this retriving the list twice(?)
+        
         self.finishedSearching.emit(self.file_list)
 
         # return
