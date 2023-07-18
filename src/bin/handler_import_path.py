@@ -63,12 +63,12 @@ class widget_select_device(QWidget):
         devices_list["Folder"]["device_id"] = "PC"
 
         for devices in devices_list:
-            self.device = devices_list[devices]
-            self.device_button = QPushButton()
-            self.device_button.setText(self.device["device_name"])
-            self.device_button.clicked.connect(self.handle_import)
-            self.device_button.setStyleSheet("padding:50px")
-            vboxMTPLayout.addWidget(self.device_button)
+            device = devices_list[devices]
+            device_button = QPushButton()
+            device_button.setText(device["device_name"])
+            device_button.clicked.connect(lambda checked=False, device=device: self.handle_import(device))
+            device_button.setStyleSheet("padding:50px")
+            vboxMTPLayout.addWidget(device_button)
 
         # BUG if there are too many devices, the widget ingores size constrains of parentwidget.
         # devices_list["Folder2"] = {}
@@ -91,9 +91,9 @@ class widget_select_device(QWidget):
 
         self.setLayout(vbox)
 
-    def handle_import(self):
+    def handle_import(self, device):
         # self.button_pressed = self.device
-        self.importPathSelected.emit(self.device)
+        self.importPathSelected.emit(device)
         # self.emit(self.button_pressed)
         # return self.button_pressed
         # self.event_loop.quit()
