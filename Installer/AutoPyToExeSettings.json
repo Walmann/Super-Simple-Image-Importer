@@ -7,7 +7,11 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/src/app.py"
+  },
+  {
+   "optionDest": "distpath",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/Exe_Dest/"
   },
   {
    "optionDest": "onefile",
@@ -15,11 +19,11 @@
   },
   {
    "optionDest": "console",
-   "value": false
+   "value": true
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico"
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets/icon.ico"
   },
   {
    "optionDest": "name",
@@ -79,7 +83,7 @@
   },
   {
    "optionDest": "datas",
-   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/"
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets;Assets/"
   },
   {
    "optionDest": "collect_submodules",
@@ -87,11 +91,19 @@
   },
   {
    "optionDest": "datas",
-   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/"
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/src/ui;ui/"
   },
   {
    "optionDest": "datas",
-   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/src/bin;bin/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/WORKFOLDER/Super_Simple_Image_Importer/.venv/Lib/site-packages;site-packages/"
+  },
+  {
+   "optionDest": "hiddenimports",
+   "value": "PySide6"
   }
  ],
  "nonPyinstallerOptions": {

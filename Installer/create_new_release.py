@@ -1,9 +1,11 @@
+import argparse
 import os
 import re
 import subprocess
 import sys
 import shutil
-from github import Github
+# from github import Github
+import github 
 
 
 def update_version_info(version_number, version_info_file):
@@ -21,28 +23,52 @@ def update_version_info(version_number, version_info_file):
 def update_innosetup_version(version_number, innosetup_file):
     with open(innosetup_file, "r") as f:
         lines = f.readlines()
+
+        # version_number = version_number.split(".")
+        # version_number = f"{version_number[0]}.{version_number[1]}"
         for i, line in enumerate(lines):
-            if line.startswith("#define MyAppVersion"):
-                lines[i] = f"#define MyAppVersion \"{version_number}\"\n"
+            if line.startswith("AppVersion"):
+                lines[i] = f"AppVersion={version_number}\n"
                 break
 
     with open(innosetup_file, "w") as f:
         f.writelines(lines)
 
 def run_pyinstaller(pyinstaller_settings_file, output_folder):
-    # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"'
-    # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/importer.py"'
-    pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/app.py"'
-    subprocess.run(pyinstaller_command, shell=True)
-        
-    # Delete contents of the output folder
-    if os.path.exists(output_folder):
-        shutil.rmtree(output_folder)
+    # PyInstaller Test:
+    import PyInstaller.__main__
 
-    # Move files to output folder
-    dist_folder = "./output/SSII"
-    if os.path.exists(dist_folder):
-        shutil.move(dist_folder, output_folder)
+    PyInstaller.__main__.run([
+        "--noconfirm",
+        "--name=SSII",
+        "--icon=C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets/icon.ico",
+        "--console",
+        "--clean",
+        "--distpath=C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/Exe_Dest/",
+        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets;Assets/",
+        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/ui;ui/",
+        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/bin;bin/",
+        # "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/.venv/Lib/site-packages;site-packages/",
+        "--hidden-import=PySide6",
+        "C:/WORKFOLDER/Super_Simple_Image_Importer/src/app.py"
+    ])
+
+    print()
+
+    # # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"'
+    # # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/importer.py"'
+    # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets/icon.ico" --name "SSII" --version-file "C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/version_info.txt" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/bin;bin/" --hidden-import "PySide6"  "C:/WORKFOLDER/Super_Simple_Image_Importer/src/app.py"'
+    
+    # subprocess.run(pyinstaller_command, shell=True)
+        
+    # # Delete contents of the output folder
+    # if os.path.exists(output_folder):
+    #     shutil.rmtree(output_folder)
+
+    # # Move files to output folder
+    # dist_folder = "./output/SSII"
+    # if os.path.exists(dist_folder):
+    #     shutil.move(dist_folder, output_folder)
 
 def run_inno_setup(innosetup_file, inno_setup_exe):
     innosetup_command = f'"{inno_setup_exe}" {innosetup_file}'
@@ -73,7 +99,7 @@ def get_github_token(token_file):
         github_token = f.read().strip()
 
     if len(github_token) >= 1:
-        return Github(github_token)
+        return github(github_token)
     raise ValueError
 
 def create_github_release(version_number, innosetup_file, github_token):
@@ -97,8 +123,22 @@ def create_github_release(version_number, innosetup_file, github_token):
 
 
 
+parser = argparse.ArgumentParser(
+        description="Download profiles from Instagram and Snapchat."
+    )
+parser.add_argument(
+        "-exe", action="store_true", help="Only create the exe"
+    )
+parser.add_argument(
+        "-installer", action="store_true", help="Only create the exe and the installer"
+    )
+parser.add_argument(
+        "-publish", action="store_true", help="publish new version to GitHub and Users"
+    )
+
+args = parser.parse_args()
 # Configuration
-version_number = "0.0.3.0"
+version_number = "0.3.0.0"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"
@@ -108,17 +148,22 @@ built_setup_file = "./Installer/Setup_build/SuperSimpleImageImporterSetup.exe"
 token_file = "./github_token.txt"
 
 
+
+
+
 # Update version number in version_info.txt
 update_version_info(version_number, version_info_file)
 
 # Update version number in innosetup.iss
 update_innosetup_version(version_number, innosetup_file)
+if args.exe:
+    # Run PyInstaller
+    run_pyinstaller(pyinstaller_settings_file, output_folder)
 
-# Run PyInstaller
-run_pyinstaller(pyinstaller_settings_file, output_folder)
+if args.installer:
+    # Run Inno Setup
+    run_inno_setup(innosetup_file, inno_setup_exe)
 
-# Run Inno Setup
-run_inno_setup(innosetup_file, inno_setup_exe)
-
-github_token = get_github_token(token_file)
-create_github_release(version_number, innosetup_file, github_token)
+if args.publish:
+    github_token = get_github_token(token_file)
+    create_github_release(version_number, innosetup_file, github_token)

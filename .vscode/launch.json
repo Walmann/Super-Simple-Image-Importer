@@ -18,6 +18,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/src/bin/test.py",
+            "cwd": "${workspaceFolder}/src",
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -25,17 +26,46 @@
             "name": "app.Py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/bin/app.py",
+            "program": "${workspaceFolder}/src/app.py",
+            "cwd": "${workspaceFolder}/src",
             "console": "integratedTerminal",
             "justMyCode": true,
             "qt": "auto",
             "subProcess": true
         },
         {
-            "name": "Create New Release.Py",
+            "name": "Build EXE",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-exe"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Build Setup",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-installer"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Build EXE and Setup",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-exe", "-installer"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Build and publish",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-exe", "-installer", "-publish"],
             "console": "integratedTerminal",
             "justMyCode": true
         },
