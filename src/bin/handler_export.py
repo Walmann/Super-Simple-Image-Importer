@@ -49,6 +49,10 @@ class Export_jobs_widget(QMainWindow):
         self.FolderStructureSelection = None
         self.SortIntoFolders = None
         self.FolderStructureNamingMethod = None
+        self.convert_to_png = None
+        self.resize_new_size = "no_resize"
+
+
 
         self.setWindowTitle("Velg importering innstillinger")
 
@@ -74,6 +78,51 @@ class Export_jobs_widget(QMainWindow):
         self.sort_checkbox.setChecked(self.SortIntoFolders)
         self.sort_checkbox.clicked.connect(self.setting_changed)
         settings_layout.addWidget(self.sort_checkbox)
+        
+        
+        # Label for "Konverter til PNG" checkbox
+        self.convert_label = QLabel("Konverter til vanlig bildeformat")
+        settings_layout.addWidget(self.convert_label)
+
+        # Checkbox for "Konverter til PNG"
+        self.convert_checkbox = QCheckBox()
+        self.convert_checkbox.setChecked(self.convert_to_png == True)
+        self.convert_checkbox.clicked.connect(self.setting_changed)
+        settings_layout.addWidget(self.convert_checkbox)
+
+
+        # Label for "Endre Størrelse"
+        self.resize_image_label = QLabel("Endre størrelse på bildet:")
+        settings_layout.addWidget(self.resize_image_label)
+
+        self.resize_image_radio_group = QButtonGroup()
+
+        # Radio buttons for "FolderStructureSelection"
+        self.resize_image_radio_button_no_resize = QRadioButton("Ikke endre størrelse", checked=True)
+        self.resize_image_radio_button_no_resize.setChecked(self.resize_new_size == "no_resize")
+        self.resize_image_radio_button_no_resize.toggled.connect(self.setting_changed)
+        settings_layout.addWidget(self.resize_image_radio_button_no_resize)
+        self.resize_image_radio_group.addButton(self.resize_image_radio_button_no_resize)
+
+        self.resize_image_radio_button_small = QRadioButton("Liten (250p)")
+        self.resize_image_radio_button_small.setChecked(self.resize_new_size == "250")
+        self.resize_image_radio_button_small.toggled.connect(self.setting_changed)
+        settings_layout.addWidget(self.resize_image_radio_button_small)
+        self.resize_image_radio_group.addButton(self.resize_image_radio_button_small)
+
+        self.resize_image_radio_button_medium = QRadioButton("Middels (720p)")
+        self.resize_image_radio_button_medium.setChecked(self.resize_new_size == "720")
+        self.resize_image_radio_button_medium.toggled.connect(self.setting_changed)
+        settings_layout.addWidget(self.resize_image_radio_button_medium)
+        self.resize_image_radio_group.addButton(self.resize_image_radio_button_medium)
+
+        self.resize_image_radio_button_large = QRadioButton("Stor (1080p)")
+        self.resize_image_radio_button_large.setChecked(self.resize_new_size == "1080")
+        self.resize_image_radio_button_large.toggled.connect(self.setting_changed)
+        settings_layout.addWidget(self.resize_image_radio_button_large)
+        self.resize_image_radio_group.addButton(self.resize_image_radio_button_large)
+
+
 
         # Radio buttons for "FolderStructureSelection"
         self.folder_structure_selection_group = QButtonGroup()
@@ -187,9 +236,27 @@ class Export_jobs_widget(QMainWindow):
                 self.FolderStructureNamingMethod = "subFolders"
             elif sender == self.naming_button2:
                 self.FolderStructureNamingMethod = "direct"
+            
+
+            elif sender == self.resize_image_radio_button_no_resize:
+                self.resize_new_size = "no_resize"
+            elif sender == self.resize_image_radio_button_small:
+                self.resize_new_size = 250
+            elif sender == self.resize_image_radio_button_medium:
+                self.resize_new_size = 720
+            elif sender == self.resize_image_radio_button_large:
+                self.resize_new_size = 1080
+
+                
+
         if sender == self.sort_checkbox:
             self.SortIntoFolders = checked
             print(self.SortIntoFolders)
+
+        if sender == self.convert_checkbox:
+            self.convert_to_png = self.convert_checkbox.isChecked()
+            print(self.convert_checkbox.isChecked())
+
 
     def get_settings(self):
         default_sort_into_folders = True
@@ -253,6 +320,8 @@ class Export_jobs_widget(QMainWindow):
         self.work_queue[work_name]["FolderStructureSelection"] = self.FolderStructureSelection
         self.work_queue[work_name]["FolderStructureNamingMethod"] = self.FolderStructureNamingMethod
         self.work_queue[work_name]["FilesToImport"] = self.file_list_import
+        self.work_queue[work_name]["ResizeNewSize"] = self.resize_new_size
+        self.work_queue[work_name]["ConvertImageToPng"] = self.convert_to_png
 
 
         # Skriv work_queue-dictionaryen til "WorkQueue.json"

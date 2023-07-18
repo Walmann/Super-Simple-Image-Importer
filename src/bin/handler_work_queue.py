@@ -3,7 +3,8 @@ import shutil
 import json
 import sys
 from datetime import datetime
-
+from PIL import Image
+from os.path import splitext as PathSplitText
 import os
 from PySide6.QtWidgets import (
     QApplication,
@@ -136,8 +137,59 @@ class Work_queue(QWidget):
                 newFilePath = self.find_available_name_for_file(newFilePath)
             shutil.copy2(oldFilePath, newFilePath)
 
+            #Convert image to PNG
+            if job["ConvertImageToPng"]:
+                newFilePath = self.convert_to_png(newFilePath)
+
+            if type(job["ResizeNewSize"] ) == int:
+                self.resizeImage(resolution=job["ResizeNewSize"],image_path=newFilePath)
+                # self.resizeImage(self, image_path=newFilePath, resolution=job["ResizeNewSize"])
+
             self.progressBar.setValue(i)            
         
         self.progressBar.setValue(len(job["FilesToImport"]))            
         self.finished_work_queue.emit(True)
 
+    def convert_to_png(self, image_path):
+        image = Image.open(image_path)
+        new_image_path = PathSplitText(image_path)[0] + '.png'
+        image.save(new_image_path)
+        return new_image_path
+    
+    def resizeImage(self, image_path, resolution):
+        # Load the image
+        image = Image.open(image_path)
+
+        # Get the width and height of the image
+        width, height = image.size
+
+        # Determine the aspect ratio of the image
+        aspect_ratio = width / height
+
+        # Parse the size string into width and height integers
+        # size_parts = resolution.split("x")
+        # max_width = int(size_parts[0])
+        # max_height = int(size_parts[1])
+        max_width = resolution
+        max_height = resolution
+
+        # Determine the maximum width and height based on the size parameters
+        if aspect_ratio >= 1:
+            # Landscape orientation
+            new_width = min(width, max_width)
+            new_height = int(new_width / aspect_ratio)
+            if new_height > max_height:
+                new_height = max_height
+                new_width = int(new_height * aspect_ratio)
+        else:
+            # Portrait orientation
+            new_height = min(height, max_height)
+            new_width = int(new_height * aspect_ratio)
+            if new_width > max_width:
+                new_width = max_width
+                new_height = int(new_width / aspect_ratio)
+
+        # Resize the image using the calculated width and height
+        resized_image = image.resize((new_width, new_height), Image.LANCZOS)
+        resized_image.save(image_path)
+        return resized_image
