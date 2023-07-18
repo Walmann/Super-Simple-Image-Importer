@@ -18,10 +18,10 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 
-from handle_settings import SettingsHandlerClass
+from bin.handle_settings import SettingsHandlerClass
 from datetime import datetime
 
-from handler_worker_queue import worker_queue_handler
+from bin.handler_worker_queue import worker_queue_handler
 
 # class Signals(QObject):
 #     finished = Signal()

@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 import sys
 
-import handler_MTP
+from bin import handler_MTP
 
 # class Signals(QObject):
 #     finished = Signal()
