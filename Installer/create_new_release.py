@@ -139,7 +139,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 # Configuration
-version_number = "0.3.0.0"
+version_number = "0.3.1.0"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"
