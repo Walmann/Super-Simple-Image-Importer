@@ -167,6 +167,9 @@ class MainWindow(QMainWindow):
         print("Start Queue Clicked and registered!")
         self.change_layout("handler_export_status_report")
 
+    def importMoreImages(self):
+        self.change_layout("handler_select_images_to_import")
+
     def change_layout(self, newLayout):     
 
 
@@ -201,7 +204,7 @@ class MainWindow(QMainWindow):
         elif newLayout == "handler_export_status_report":
             self.new_module = Export_status_report(self.export_status)
             # Koble signalet til funksjonen
-            # self.new_module.start_import_signal.connect(self.start_job_queue)
+            self.new_module.importMorePicturesSignal.connect(self.importMoreImages)
             
         else: 
             # self.new_module = self.ErrorLayout()

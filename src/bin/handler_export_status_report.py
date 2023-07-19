@@ -1,5 +1,5 @@
-import json
-import sys
+# import json
+# import sys
 from PySide6.QtWidgets import (
     QApplication,
     QListWidget,
@@ -18,12 +18,12 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 
-from bin.handle_settings import SettingsHandlerClass
-from datetime import datetime
+# from bin.handle_settings import SettingsHandlerClass
+# from datetime import datetime
 
 
 class Export_status_report(QMainWindow):
-    start_import_signal = Signal(dict)
+    importMorePicturesSignal = Signal()
 
     def __init__(self, export_status):
         super().__init__()
@@ -43,7 +43,13 @@ class Export_status_report(QMainWindow):
         self.statusLabel.setAlignment(Qt.AlignCenter)
         layout.addWidget(self.statusLabel)
 
-
+        self.importMoreButton = QPushButton("Importer flere bilder")
+        self.importMoreButton.clicked.connect(self.importMore)
+        # self.importMoreButton.setText("Importer flere bilder")
+        layout.addWidget(self.importMoreButton)
+    
+        
+        
         self.exitButton = QPushButton()
         self.exitButton.clicked.connect(QApplication.quit)
         self.exitButton.setText("Exit Program")
@@ -54,3 +60,7 @@ class Export_status_report(QMainWindow):
         centralWidget = QWidget()
         centralWidget.setLayout(layout)
         self.setCentralWidget(centralWidget)
+
+    def importMore(self):
+        self.importMorePicturesSignal.emit()
+        print()
