@@ -41,23 +41,24 @@ def run_pyinstaller(pyinstaller_settings_file, output_folder):
     PyInstaller.__main__.run([
         "--noconfirm",
         "--name=SSII",
-        "--icon=C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets/icon.ico",
+        f"--icon={current_working_dir}/src/Assets/icon.ico",
         "--console",
         "--clean",
-        "--distpath=C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/Exe_Dest/",
-        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets;Assets/",
-        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/ui;ui/",
-        "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/src/bin;bin/",
-        # "--add-data=C:/WORKFOLDER/Super_Simple_Image_Importer/.venv/Lib/site-packages;site-packages/",
+        f"--version-file={version_info_file}",
+        f"--distpath={current_working_dir}/Installer/Exe_Dest/",
+        f"--add-data={current_working_dir}/src/Assets;Assets/",
+        f"--add-data={current_working_dir}/src/ui;ui/",
+        f"--add-data={current_working_dir}/src/bin;bin/",
+        # "--add-data={current_working_dir}/.venv/Lib/site-packages;site-packages/",
         "--hidden-import=PySide6",
-        "C:/WORKFOLDER/Super_Simple_Image_Importer/src/app.py"
+        f"{current_working_dir}/src/app.py"
     ])
 
     print()
 
-    # # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/bin;bin/"  "C:/WORKFOLDER/Super_Simple_Image_Importer/bin/importer.py"'
+    # # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon f"{current_working_dir}/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data f"{current_working_dir}/Assets;Assets/" --collect-submodules "win32api" --add-data f"{current_working_dir}/ui;ui/" --add-data f"{current_working_dir}/bin;bin/"  f"{current_working_dir}/bin/importer.py"'
     # # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/importer.py"'
-    # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets/icon.ico" --name "SSII" --version-file "C:/WORKFOLDER/Super_Simple_Image_Importer/Installer/version_info.txt" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/Assets;Assets/" --collect-submodules "win32api" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/ui;ui/" --add-data "C:/WORKFOLDER/Super_Simple_Image_Importer/src/bin;bin/" --hidden-import "PySide6"  "C:/WORKFOLDER/Super_Simple_Image_Importer/src/app.py"'
+    # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon f"{current_working_dir}/src/Assets/icon.ico" --name "SSII" --version-file f"{current_working_dir}/Installer/version_info.txt" --add-data f"{current_working_dir}/src/Assets;Assets/" --collect-submodules "win32api" --add-data f"{current_working_dir}/src/ui;ui/" --add-data f"{current_working_dir}/src/bin;bin/" --hidden-import "PySide6"  f"{current_working_dir}/src/app.py"'
     
     # subprocess.run(pyinstaller_command, shell=True)
         
@@ -146,7 +147,7 @@ output_folder = "./Installer/Exe_Build"
 inno_setup_exe = r"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe"
 built_setup_file = "./Installer/Setup_build/SuperSimpleImageImporterSetup.exe"
 token_file = "./github_token.txt"
-
+current_working_dir = f"{os.getcwd()}"
 
 
 
