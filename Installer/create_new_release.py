@@ -4,8 +4,8 @@ import re
 import subprocess
 import sys
 import shutil
-# from github import Github
-import github 
+from github import Github
+# import github 
 
 
 def update_version_info(version_number, version_info_file):
@@ -100,7 +100,7 @@ def get_github_token(token_file):
         github_token = f.read().strip()
 
     if len(github_token) >= 1:
-        return github(github_token)
+        return Github(github_token)
     raise ValueError
 
 def create_github_release(version_number, innosetup_file, github_token):
