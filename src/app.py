@@ -66,7 +66,7 @@ import time
 import subprocess
 # import debugpy
 
-
+from bin.update_check import check_for_updates
 from bin.handler_import_path import widget_select_device
 # import handler_import_path
 from bin.handler_search_images import search_images
@@ -235,6 +235,14 @@ if __name__ == "__main__":
 
     
     app = QApplication([])
+
+    is_update_available = check_for_updates()
+    if is_update_available[0]:
+        from bin.fetch_and_install_update import download_and_install_latest_release
+        download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
+
+
+
     window = MainWindow()
     window.show()
     app.exec()
