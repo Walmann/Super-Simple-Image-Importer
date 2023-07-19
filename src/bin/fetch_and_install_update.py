@@ -3,8 +3,7 @@ import tempfile
 import subprocess
 from urllib.parse import urlparse
 
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication, QMessageBox
 
 def update_prompt(local_ver, remote_ver):
     # app = QApplication([])
@@ -32,4 +31,4 @@ def download_and_install_latest_release(local_ver, remote_ver):
             with open(file_path, 'wb') as f:
                 f.write(response.content)
             print(f'Lastet ned {filename} til {tmpdir}')
-            subprocess.run([file_path])
+            subprocess.Popen([file_path])
