@@ -38,21 +38,11 @@ def run_pyinstaller(pyinstaller_settings_file, output_folder):
     # PyInstaller Test:
     import PyInstaller.__main__
 
-    PyInstaller.__main__.run([
-        "--noconfirm",
-        "--name=SSII",
-        f"--icon={current_working_dir}/src/Assets/icon.ico",
-        "--console",
-        "--clean",
-        f"--version-file={version_info_file}",
-        f"--distpath={current_working_dir}/Installer/Exe_Dest/",
-        f"--add-data={current_working_dir}/src/Assets;Assets/",
-        f"--add-data={current_working_dir}/src/ui;ui/",
-        f"--add-data={current_working_dir}/src/bin;bin/",
-        # "--add-data={current_working_dir}/.venv/Lib/site-packages;site-packages/",
-        "--hidden-import=PySide6",
-        f"{current_working_dir}/src/app.py"
-    ])
+    if args.exeFast:
+        PyInstaller.__main__.run([f"{current_working_dir}/SSII_GUI.spec"])
+    else: 
+        PyInstaller.__main__.run([f"{current_working_dir}/SSII.spec"]) #TODO Auto create the specfiles when running the script.
+
 
     print()
 
