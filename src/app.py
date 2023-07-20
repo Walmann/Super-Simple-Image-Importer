@@ -108,7 +108,11 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         try:
-            subprocess.check_output(["taskkill", "/F", "/IM", "mtpmount-x64.exe"])
+            if isDebug():
+                subprocess.Popen(["taskkill", "/F", "/IM", "mtpmount-x64.exe"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            else: 
+                subprocess.Popen(["taskkill", "/F", "/IM", "mtpmount-x64.exe"], stderr=subprocess.PIPE, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
+
         except subprocess.CalledProcessError:
             pass
         event.accept()
@@ -227,20 +231,22 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
-
     # Reset some stuff
-    handler_MTP.unmount_MTP_device()
+    # handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
+    handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
     try:
         os.remove("WorkQueue.json")
     except FileNotFoundError as e:
         pass
 
-
-    
+    parser = argparse.ArgumentParser(description='Flytt filer fra tovare til Vault.')
+    parser.add_argument('-forceUpdate', action='store_true', help='Force update the program.')
+    args = parser.parse_args()
+        
     app = QApplication([])
 
     is_update_available = check_for_updates()
-    if is_update_available[0]:
+    if is_update_available[0] or args.forceUpdate:
         from bin.fetch_and_install_update import download_and_install_latest_release
         download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
 

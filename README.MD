@@ -8,8 +8,7 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 # Todo list: 
 
 ## First Priority
-
-
+- Add Force Update to EXE.
 ## Second Priority
 
 -  Reset settings

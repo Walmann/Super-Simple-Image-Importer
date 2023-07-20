@@ -76,7 +76,7 @@ class search_images(QWidget):
         self.setMaximumSize(850,590)
         # self.setFixedSize(300, 250)
 
-    def get_file_list(self, import_path):
+    def get_file_list(self, import_path): # TODO Make this a seperate process, this hangs the program.
         directory = import_path
         file_amount = 0
         exclude_folders = set([".thumbnails", "cache"])

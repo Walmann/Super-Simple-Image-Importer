@@ -2,16 +2,18 @@ import sys
 # from bin.debug_write import isDebug
 # if isDebug:
 def isDebug():
+    nameSplit1 = sys.argv[0].split("/")[-1] 
+    nameSplit2 = sys.argv[0].split("\\")[-1] 
 
-   
+    debugExeNames = ["app.py", "SSII_CLI.exe"]
 
-    name = sys.argv[0].split("/")[-1] 
-    if name == "app.py" or name == "SSII_CLI.exe": # TODO NEXT Popup vinduer i EXE filen. Finn ut hvorfor.
+    if nameSplit1 in debugExeNames or nameSplit2 in debugExeNames: # TODO NEXT Popup vinduer i EXE filen. Finn ut hvorfor.
         return True
     else: 
         return False
 
 
 def returnName():
-        name = sys.argv[0].split("/")[-1] 
-        return str(name)
+        # name = sys.argv[0].split("/")[-1] 
+        nameSplit2 = sys.argv[0].split("\\")[-1] 
+        return str(f"{nameSplit2} isDebug: {isDebug()}")
