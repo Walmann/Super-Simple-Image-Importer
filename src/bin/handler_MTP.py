@@ -38,7 +38,7 @@ def mount_MTP_device(device):
         "drive_path": f"{drive_letter}://",
     }
 
-    # print()
+    
     return mount_info
 
 

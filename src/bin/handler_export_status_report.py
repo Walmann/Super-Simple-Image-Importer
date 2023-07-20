@@ -20,7 +20,8 @@ from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 
 # from bin.handle_settings import SettingsHandlerClass
 # from datetime import datetime
-
+from bin.debug_write import isDebug
+# if isDebug:
 
 class Export_status_report(QMainWindow):
     importMorePicturesSignal = Signal()
@@ -63,4 +64,5 @@ class Export_status_report(QMainWindow):
 
     def importMore(self):
         self.importMorePicturesSignal.emit()
-        print()
+        if isDebug:
+            print("Sendt More pictures signal")

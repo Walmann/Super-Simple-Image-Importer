@@ -4,6 +4,7 @@ import subprocess
 from urllib.parse import urlparse
 
 from PySide6.QtWidgets import QApplication, QMessageBox
+from bin.debug_write import isDebug
 
 def update_prompt(local_ver, remote_ver):
     # app = QApplication([])
@@ -30,5 +31,6 @@ def download_and_install_latest_release(local_ver, remote_ver):
             file_path = f'{tmpdir}/{filename}'
             with open(file_path, 'wb') as f:
                 f.write(response.content)
-            print(f'Lastet ned {filename} til {tmpdir}')
+            if isDebug:
+                print(f'Lastet ned {filename} til {tmpdir}')
             subprocess.Popen([file_path])

@@ -64,6 +64,7 @@ import sys
 import os
 import time
 import subprocess
+import argparse
 # import debugpy
 
 from bin.update_check import check_for_updates
@@ -77,8 +78,8 @@ from bin.handler_select_images_to_import import Gallery_Select
 from bin.handler_export import Export_jobs_widget
 from bin.handler_work_queue import Work_queue
 from bin.handler_export_status_report import Export_status_report
-
-
+from bin.debug_write import isDebug
+# if isDebug:
 class Signals(QObject):
     finished = Signal()
 
@@ -104,10 +105,6 @@ class MainWindow(QMainWindow):
 
 
         self.change_layout("import_path_module")
-
-
-        # self.start_app_process()
-        print()
 
     def closeEvent(self, event):
         try:
@@ -164,7 +161,8 @@ class MainWindow(QMainWindow):
 
     def job_queue_finished(self, export_status):
         self.export_status = export_status
-        print("Start Queue Clicked and registered!")
+        if isDebug: 
+            print("Start Queue Clicked and registered!")
         self.change_layout("handler_export_status_report")
 
     def importMoreImages(self):
@@ -208,7 +206,8 @@ class MainWindow(QMainWindow):
             
         else: 
             # self.new_module = self.ErrorLayout()
-            print("Error")
+            if isDebug:
+                print("Error")
 
 
 
@@ -228,6 +227,7 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+
     # Reset some stuff
     handler_MTP.unmount_MTP_device()
     try:
@@ -249,4 +249,4 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     app.exec()
-print()
+
