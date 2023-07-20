@@ -161,6 +161,8 @@ def create_github_release(version_number, innosetup_file, github_token):
     # Publish the release
     release.update_release(draft=False, name=version_number, message="This is an automated release.")
 
+    print("Successfully created new release!")
+
 
 
 parser = argparse.ArgumentParser(
