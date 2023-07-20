@@ -79,7 +79,7 @@ class search_images(QWidget):
     def get_file_list(self, import_path): # TODO Make this a seperate process, this hangs the program.
         directory = import_path
         file_amount = 0
-        exclude_folders = set([".thumbnails", "cache"])
+        exclude_folders = set([".thumbnails", "cache", "Android"])
         # FUTURE Add Video files too!!!!
         filetypes_to_import = set(
             [
