@@ -78,6 +78,15 @@
             "console": "integratedTerminal",
             "justMyCode": true
         },
+        {
+            "name": "Publish Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-publish"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
         // {
         //     "name": "BUILD_EXE Setup.py ",
         //     "type": "python",
