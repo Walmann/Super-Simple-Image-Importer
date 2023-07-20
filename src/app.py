@@ -64,6 +64,7 @@ import sys
 import os
 import time
 import subprocess
+import argparse
 # import debugpy
 
 from bin.update_check import check_for_updates
@@ -77,8 +78,8 @@ from bin.handler_select_images_to_import import Gallery_Select
 from bin.handler_export import Export_jobs_widget
 from bin.handler_work_queue import Work_queue
 from bin.handler_export_status_report import Export_status_report
-
-
+from bin.debug_write import isDebug
+# if isDebug:
 class Signals(QObject):
     finished = Signal()
 
@@ -105,13 +106,13 @@ class MainWindow(QMainWindow):
 
         self.change_layout("import_path_module")
 
-
-        # self.start_app_process()
-        print()
-
     def closeEvent(self, event):
         try:
-            subprocess.check_output(["taskkill", "/F", "/IM", "mtpmount-x64.exe"])
+            if isDebug():
+                subprocess.Popen(["taskkill", "/F", "/IM", "mtpmount-x64.exe"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            else: 
+                subprocess.Popen(["taskkill", "/F", "/IM", "mtpmount-x64.exe"], stderr=subprocess.PIPE, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
+
         except subprocess.CalledProcessError:
             pass
         event.accept()
@@ -164,8 +165,12 @@ class MainWindow(QMainWindow):
 
     def job_queue_finished(self, export_status):
         self.export_status = export_status
-        print("Start Queue Clicked and registered!")
+        if isDebug: 
+            print("Start Queue Clicked and registered!")
         self.change_layout("handler_export_status_report")
+
+    def importMoreImages(self):
+        self.change_layout("handler_select_images_to_import")
 
     def change_layout(self, newLayout):     
 
@@ -201,11 +206,12 @@ class MainWindow(QMainWindow):
         elif newLayout == "handler_export_status_report":
             self.new_module = Export_status_report(self.export_status)
             # Koble signalet til funksjonen
-            # self.new_module.start_import_signal.connect(self.start_job_queue)
+            self.new_module.importMorePicturesSignal.connect(self.importMoreImages)
             
         else: 
             # self.new_module = self.ErrorLayout()
-            print("Error")
+            if isDebug:
+                print("Error")
 
 
 
@@ -226,18 +232,21 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     # Reset some stuff
-    handler_MTP.unmount_MTP_device()
+    # handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
+    handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
     try:
         os.remove("WorkQueue.json")
     except FileNotFoundError as e:
         pass
 
-
-    
+    parser = argparse.ArgumentParser(description='Flytt filer fra tovare til Vault.')
+    parser.add_argument('-forceUpdate', action='store_true', help='Force update the program.')
+    args = parser.parse_args()
+        
     app = QApplication([])
 
     is_update_available = check_for_updates()
-    if is_update_available[0]:
+    if is_update_available[0] or args.forceUpdate:
         from bin.fetch_and_install_update import download_and_install_latest_release
         download_and_install_latest_release(local_ver=is_update_available[1], remote_ver=is_update_available[2])
 
@@ -246,4 +255,4 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     app.exec()
-print()
+

@@ -1,17 +1,37 @@
 import subprocess
 import re
 
+# import os
+from bin.debug_write import isDebug
 
-def unmount_MTP_device(device=None, unmount_all=True):
+
+def unmount_MTP_device(device=None, unmount_all=True, unmount_all_debug=False):
+    if unmount_all_debug is True:
+        unmount_all = False
     if unmount_all:
         try:
-            subprocess.check_output(["taskkill", "/F", "/IM", "mtpmount-x64.exe"])
+            # subprocess.check_output(["taskkill", "/F", "/IM", "mtpmount-x64.exe"])
+            subprocess.Popen(
+                ["taskkill", "/F", "/IM", "mtpmount-x64.exe"],
+                stderr=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                creationflags=subprocess.CREATE_NO_WINDOW
+            )
         except subprocess.CalledProcessError:
             pass
-        device = fetch_devices()
+        # device = fetch_devices()
+    if unmount_all_debug:
+        try:
+            subprocess.Popen(
+                ["taskkill", "/F", "/IM", "mtpmount-x64.exe"],
+                stderr=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError:
+            pass
 
 
-def mount_MTP_device(device):
+def mount_MTP_device(device, debug=False):
     """Mounts MTP device from the "device" arg
 
     Args:
@@ -20,12 +40,23 @@ def mount_MTP_device(device):
     Returns:
         dict: Returns information about the path to the newly mounted device.
     """
+
     # Mount the device
-    Output = str(
-        subprocess.check_output(
-            ["./bin/mtpmount-x64.exe", "mount", f"#{device['device_id']}"]
-        )
+    proc = subprocess.run(
+        ["./bin/mtpmount-x64.exe", "mount", f"#{device['device_id']}"],
+        stdout=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW
     )
+    try:
+        Output = proc.stdout.decode()
+    except AttributeError as e:
+        if isDebug():
+            print(e)
+        else: 
+            pass
+
+    if isDebug():
+        print(f"Mounting MTP Device Output: \n{Output}")
 
     # Get info from Output of command above
     re_pattern_drive_letter_name = "((Drive )(.).*? is now (.*?). Don't)"
@@ -38,7 +69,6 @@ def mount_MTP_device(device):
         "drive_path": f"{drive_letter}://",
     }
 
-    # print()
     return mount_info
 
 
@@ -50,9 +80,19 @@ def fetch_devices():
     """
     re_pattern = "(Connection .*?:).*?(\|--.*?\])"
     # re_pattern = "\|--.*?\]"
-    Output = subprocess.check_output(["./bin/mtpmount-x64.exe", "list", "available"])
-
-    found_devices_raw = re.findall(re_pattern, str(Output))
+    proc = subprocess.Popen(
+        ["./bin/mtpmount-x64.exe", "list", "available"], stdout=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW
+    )
+    try:
+        # Output = proc.stdout.decode()
+        Output = str(proc.stdout.read())
+    except AttributeError as e:
+        if isDebug():
+            print(e)
+        else: 
+            pass
+    found_devices_raw = re.findall(re_pattern, Output, re.DOTALL)
 
     found_devices = {}
     # re_pattern_splitter = "(\|--)(.* )(\[.*\])"

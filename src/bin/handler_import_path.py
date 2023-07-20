@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
 import sys
 
 from bin import handler_MTP
-
+from bin.debug_write import returnName, isDebug
 # class Signals(QObject):
 #     finished = Signal()
 # class widget_select_device(QDialog):
@@ -50,6 +50,7 @@ class widget_select_device(QWidget):
         self.label.setFont(font_header)
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setMinimumHeight(250)
+        # self.label.setText(returnName() if isDebug() else "Den er ikke Debug!") # Used to debug the debug setting, by showing the name of the EXE.
 
         vbox.addWidget(self.label)
 

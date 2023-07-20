@@ -7,15 +7,12 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 
 # Todo list: 
 
-## For This Branch
-
-
 ## First Priority
--  Reset settings
--  "About" section that contains version information for the program.
-
+- Add Force Update to EXE.
 ## Second Priority
 
+-  Reset settings
+-  "About" section that contains version information for the program.
 - Make the program prettier
 - Error handling inside the program
 - Give items background colors. # item.setBackground("black")

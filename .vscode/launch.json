@@ -43,6 +43,15 @@
             "justMyCode": true
         },
         {
+            "name": "Build Fast EXE",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-exeFast"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Build Setup",
             "type": "python",
             "request": "launch",
@@ -66,6 +75,15 @@
             "request": "launch",
             "program": "${workspaceFolder}/Installer/create_new_release.py",
             "args": ["-exe", "-installer", "-publish"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Publish Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Installer/create_new_release.py",
+            "args": ["-publish"],
             "console": "integratedTerminal",
             "justMyCode": true
         },

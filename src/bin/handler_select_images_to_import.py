@@ -65,6 +65,7 @@ from PySide6.QtWidgets import (
     # qApp,
 )
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
+from bin.debug_write import isDebug
 # from PyQt5.uic import loadUiType
 import sys
 import os
@@ -316,7 +317,8 @@ class GridView(QGraphicsView):
         # self.threadpool = []
         
         self.threadpool.setMaxThreadCount(1)
-        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        if isDebug:
+            print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -383,8 +385,9 @@ class GridView(QGraphicsView):
                         worker = WorkerLoadingThumbnails(item=item)
                         self.threadpool.start(worker)
         except Exception as e:
-            print(e)        
-            print(e)        
+            if isDebug:
+                print(e)        
+                
     def stopThreadPool(self):
         for thread in self.threadpool:
             thread.quit()
@@ -448,7 +451,8 @@ class Gallery_Select(QMainWindow):
 
         self.threadpoolAddItems = QThreadPool()
         # self.threadpoolAddItems.setMaxThreadCount(1)
-        print("Multithreading with maximum %d threads" % self.threadpoolAddItems.maxThreadCount())
+        if isDebug:
+            print("Multithreading with maximum %d threads" % self.threadpoolAddItems.maxThreadCount())
 
 
         
@@ -473,7 +477,8 @@ class Gallery_Select(QMainWindow):
 
     def start_item_import(self, file_list):
         # waitForUi = self.signal_done_creating_main_ui.connect(self.add_items_to_gallery)
-        print("generating Items.")
+        if isDebug:
+            print("generating Items.")
 
         self.file_list = file_list
         start = time.time()
@@ -485,7 +490,8 @@ class Gallery_Select(QMainWindow):
         temp = self.gridWidget.scene().items()
         self.gridWidget.updateGrid()
         stop = time.time()
-        print(f"Elapsed Time: {stop - start}")
+        if isDebug:
+            print(f"Elapsed Time: {stop - start}")
         self.signal_items_created.emit()
         # temp = self.gridWidget.scene().items()
         # print()

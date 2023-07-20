@@ -1,7 +1,7 @@
 
 [Setup]
 AppName=Super Simple Image Importer
-AppVersion=0.3.0.0
+AppVersion=0.3.1.0
 WizardStyle=modern
 DefaultDirName={autopf}\SSII
 DefaultGroupName=Super Simple Image Importer

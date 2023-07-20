@@ -84,7 +84,6 @@ class Work_queue(QWidget):
 
 
     def start_working(self, work_queue):
-        print()
         for index , job in enumerate(work_queue):
             self.countInt.setText(f"{index +1} / {len(work_queue)}")
             jobEntry = work_queue[job]

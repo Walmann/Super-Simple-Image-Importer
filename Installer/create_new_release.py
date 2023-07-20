@@ -1,11 +1,11 @@
+import subprocess
 import argparse
 import os
 import re
-import subprocess
 import sys
 import shutil
-# from github import Github
-import github 
+from github import Github
+# import github 
 
 
 def update_version_info(version_number, version_info_file):
@@ -35,26 +35,65 @@ def update_innosetup_version(version_number, innosetup_file):
         f.writelines(lines)
 
 def run_pyinstaller(pyinstaller_settings_file, output_folder):
+    # # Delete contents of all output folders.Also exits MTP mount if its running
+    try:
+        subprocess.check_output(["taskkill", "/F", "/IM", "mtpmount-x64.exe"])
+    except subprocess.CalledProcessError:
+        pass
+
+    dirsToDelete = [f"{current_working_dir}/dist/SSII", f"{current_working_dir}/build/SSII", f"{current_working_dir}/Installer/Setup_Build/SSII", output_folder]
+    for x in dirsToDelete:
+        if os.path.exists(x):
+            shutil.rmtree(x)
+
+
+
+
     # PyInstaller Test:
     import PyInstaller.__main__
 
-    PyInstaller.__main__.run([
-        "--noconfirm",
-        "--name=SSII",
-        f"--icon={current_working_dir}/src/Assets/icon.ico",
-        "--console",
-        "--clean",
-        f"--version-file={version_info_file}",
-        f"--distpath={current_working_dir}/Installer/Exe_Dest/",
-        f"--add-data={current_working_dir}/src/Assets;Assets/",
-        f"--add-data={current_working_dir}/src/ui;ui/",
-        f"--add-data={current_working_dir}/src/bin;bin/",
-        # "--add-data={current_working_dir}/.venv/Lib/site-packages;site-packages/",
-        "--hidden-import=PySide6",
-        f"{current_working_dir}/src/app.py"
-    ])
+    if args.exeFast:
+        PyInstaller.__main__.run([f"{current_working_dir}/SSII_GUI.spec"])
+    else: 
+        PyInstaller.__main__.run([f"{current_working_dir}/SSII.spec"]) #TODO Auto create the specfiles when running the script.
 
-    print()
+    # # Move files to output folder
+    dist_folder = "./dist/SSII"
+    if os.path.exists(dist_folder):
+        shutil.move(dist_folder, output_folder)
+
+
+
+    # PyInstaller.__main__.run([
+    #     "--noconfirm",
+    #     "--name=SSII",
+    #     f"--icon={current_working_dir}/src/Assets/icon.ico",
+    #     "--noconsole",
+    #     "--clean",
+    #     f"--version-file={version_info_file}",
+    #     f"--distpath={current_working_dir}/Installer/Exe_Dest/",
+    #     f"--add-data={current_working_dir}/src/Assets;Assets/",
+    #     f"--add-data={current_working_dir}/src/ui;ui/",
+    #     f"--add-data={current_working_dir}/src/bin;bin/",
+    #     "--hidden-import=PySide6",
+    #     f"{current_working_dir}/src/app.py"
+    # ])
+    # PyInstaller.__main__.run([
+    #     "--noconfirm",
+    #     "--name=SSII_CLI",
+    #     f"--icon={current_working_dir}/src/Assets/icon.ico",
+    #     "--console",
+    #     "--clean",
+    #     f"--version-file={version_info_file}",
+    #     f"--distpath={current_working_dir}/Installer/Exe_Dest/",
+    #     f"--add-data={current_working_dir}/src/Assets;Assets/",
+    #     f"--add-data={current_working_dir}/src/ui;ui/",
+    #     f"--add-data={current_working_dir}/src/bin;bin/",
+    #     "--hidden-import=PySide6",
+    #     f"{current_working_dir}/src/app.py"
+    # ])
+
+    # print()
 
     # # pyinstaller_command = f'pyinstaller --distpath "./Exe_Dest/" --workpath "./Exe_Build/" --noconfirm --onedir --windowed --icon f"{current_working_dir}/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data f"{current_working_dir}/Assets;Assets/" --collect-submodules "win32api" --add-data f"{current_working_dir}/ui;ui/" --add-data f"{current_working_dir}/bin;bin/"  f"{current_working_dir}/bin/importer.py"'
     # # pyinstaller_command = f'pyinstaller --distpath "./Installer/Exe_Dest/" --workpath "./Installer/Exe_Build/" --noconfirm --onedir --windowed --icon "./src/Assets/icon.ico" --name "SSII" --version-file "{version_info_file}" --add-data "./src/Assets;Assets/" --collect-submodules "win32api" --add-data "./src/ui;ui/" --add-data "./src/bin;bin/"  "./src/bin/importer.py"'
@@ -100,7 +139,7 @@ def get_github_token(token_file):
         github_token = f.read().strip()
 
     if len(github_token) >= 1:
-        return github(github_token)
+        return Github(github_token)
     raise ValueError
 
 def create_github_release(version_number, innosetup_file, github_token):
@@ -122,6 +161,8 @@ def create_github_release(version_number, innosetup_file, github_token):
     # Publish the release
     release.update_release(draft=False, name=version_number, message="This is an automated release.")
 
+    print("Successfully created new release!")
+
 
 
 parser = argparse.ArgumentParser(
@@ -129,6 +170,9 @@ parser = argparse.ArgumentParser(
     )
 parser.add_argument(
         "-exe", action="store_true", help="Only create the exe"
+    )
+parser.add_argument(
+        "-exeFast", action="store_true", help="Only create the exe with GUI. Faster that just -exe."
     )
 parser.add_argument(
         "-installer", action="store_true", help="Only create the exe and the installer"
@@ -139,11 +183,11 @@ parser.add_argument(
 
 args = parser.parse_args()
 # Configuration
-version_number = "0.3.0.0"
+version_number = "0.3.1.0"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"
-output_folder = "./Installer/Exe_Build"
+output_folder = "./Installer/Exe_Dest/SSII"
 inno_setup_exe = r"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe"
 built_setup_file = "./Installer/Setup_build/SuperSimpleImageImporterSetup.exe"
 token_file = "./github_token.txt"
@@ -157,7 +201,7 @@ update_version_info(version_number, version_info_file)
 
 # Update version number in innosetup.iss
 update_innosetup_version(version_number, innosetup_file)
-if args.exe:
+if args.exe or args.exeFast:
     # Run PyInstaller
     run_pyinstaller(pyinstaller_settings_file, output_folder)
 
