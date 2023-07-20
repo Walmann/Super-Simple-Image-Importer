@@ -7,7 +7,7 @@ def isDebug():
 
     debugExeNames = ["app.py", "SSII_CLI.exe"]
 
-    if nameSplit1 in debugExeNames or nameSplit2 in debugExeNames: # TODO NEXT Popup vinduer i EXE filen. Finn ut hvorfor.
+    if nameSplit1 in debugExeNames or nameSplit2 in debugExeNames:
         return True
     else: 
         return False
