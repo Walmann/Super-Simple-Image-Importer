@@ -21,7 +21,7 @@ from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 from bin.handle_settings import SettingsHandlerClass
 from datetime import datetime
 
-from bin.handler_worker_queue import worker_queue_handler
+from bin.handler_worker_queue_file import worker_queue_file_handler
 
 # class Signals(QObject):
 #     finished = Signal()
@@ -290,10 +290,10 @@ class Export_jobs_widget(QMainWindow):
 
     def add_to_work_queue(self):
         # Hent innholdet fra "WorkQueue.json" hvis det eksisterer
-        try:
-            self.work_queue = worker_queue_handler.load()
-        except FileNotFoundError:
-            self.work_queue = {}
+        # try:
+        self.work_queue = worker_queue_file_handler.new() # FUTURE This should be changes to load() when the job system is in place
+        # except FileNotFoundError:
+        #     self.work_queue = {}
 
         # Legg til de nye elementene i work_queue-dictionaryen
         work_name = self.name_input.text()
@@ -328,18 +328,18 @@ class Export_jobs_widget(QMainWindow):
         # with open("WorkQueue.json", "w") as file:
             # for x in self.work_queue:
                 # file.write(json.dump(self.work_queue))
-        worker_queue_handler.save(self, work_queue=self.work_queue)
+        worker_queue_file_handler.save(self, work_queue=self.work_queue)
 
 
         # Legg til Work_name i Work_queue elementer i UI
         self.job_list_widget.addItem(work_name)
 
     def start_import(self):
-        try:
-            self.work_queue = worker_queue_handler.load()
-        except FileNotFoundError:
-            # self.work_queue = {}
-            self.add_to_work_queue()
+        # try:
+        self.work_queue = worker_queue_file_handler.new() # FUTURE This should be changes to load() when the job system is in place
+        # except FileNotFoundError:
+        #     # self.work_queue = {}
+        #     self.add_to_work_queue()
 
         if len(self.work_queue) == 0:
             self.add_to_work_queue()
@@ -348,10 +348,10 @@ class Export_jobs_widget(QMainWindow):
         self.get_work_queue()
 
     def get_work_queue(self):
-        try:
-            self.work_queue = worker_queue_handler.load()
-        except FileNotFoundError:
-            self.work_queue = {}
+        # try:
+        self.work_queue = worker_queue_file_handler.load()
+        # except FileNotFoundError:
+        #     self.work_queue = {}
 
         # return self.work_queue
         self.start_import_signal.emit(self.work_queue)

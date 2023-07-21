@@ -79,6 +79,7 @@ from bin.handler_export import Export_jobs_widget
 from bin.handler_work_queue import Work_queue
 from bin.handler_export_status_report import Export_status_report
 from bin.debug_write import isDebug
+from bin.handler_worker_queue_file import worker_queue_file_handler
 # if isDebug:
 class Signals(QObject):
     finished = Signal()
@@ -234,10 +235,13 @@ if __name__ == "__main__":
     # Reset some stuff
     # handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
     handler_MTP.unmount_MTP_device(unmount_all_debug=True if isDebug() else False)
-    try:
-        os.remove("WorkQueue.json")
-    except FileNotFoundError as e:
-        pass
+    
+    worker_queue_file_handler.delete()
+
+    # try:
+    #     os.remove("WorkQueue.json")
+    # except FileNotFoundError as e:
+    #     pass
 
     parser = argparse.ArgumentParser(description='Flytt filer fra tovare til Vault.')
     parser.add_argument('-forceUpdate', action='store_true', help='Force update the program.')

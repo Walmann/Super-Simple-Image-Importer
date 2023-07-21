@@ -183,7 +183,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 # Configuration
-version_number = "0.3.1.0"
+version_number = "0.3.3.1"
 version_info_file = "./Installer/version_info.txt"
 innosetup_file = "./Installer/createInstallerScript_innoSetup.iss"
 pyinstaller_settings_file = "./Installer/AutoPyToExeSettings.json"
@@ -194,7 +194,7 @@ token_file = "./github_token.txt"
 current_working_dir = f"{os.getcwd()}"
 
 
-
+#TODO create check if Dokan is installed
 
 # Update version number in version_info.txt
 update_version_info(version_number, version_info_file)
