@@ -17,6 +17,6 @@ class worker_queue_handler():
     
     
     def save(self, work_queue):
-        with open("WorkQueue.json", "w") as file:
+        with open("WorkQueue.json", "w+") as file:
             json.dump(self.work_queue, fp=file)
             return True
