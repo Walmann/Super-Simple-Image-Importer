@@ -6,6 +6,7 @@ from datetime import datetime
 from PIL import Image
 from os.path import splitext as PathSplitText
 import os
+import winreg
 from PySide6.QtWidgets import (
     QApplication,
     QListWidget,
@@ -25,7 +26,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 
-
+from bin.debug_write import isDebug
 
 # class Signals(QObject):
 #     finished = Signal()
@@ -90,10 +91,36 @@ class Work_queue(QWidget):
             self.handle_job(job=jobEntry)
 
 
+
+    def findPicturesFolder(self):
+        try:
+            # Open the registry key for the current user's shell folders
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                                r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders") as key:
+
+                # Look for the value corresponding to the "Pictures" folder
+                pictures_folder_path, _ = winreg.QueryValueEx(key, "My Pictures")
+
+                if isDebug:
+                    print(f'Found Pictures folder in registry: {pictures_folder_path}')
+
+                # Check if the folder path exists
+                if os.path.exists(pictures_folder_path):
+                    if isDebug():
+                        print("Found Pictures folder on disk!")
+                    return pictures_folder_path
+
+        except Exception as e:
+            if isDebug():
+                print("Error occurred while accessing the registry:", e)
+
+        return None
+
     def createFilePath(self, job):
         
         # FUTURE Add Export folder.
-        prefix = os.path.join(os.environ["USERPROFILE"], "Pictures")
+        # prefix = os.path.join(os.environ["USERPROFILE"], "Pictures")
+        prefix = os.path.join(self.findPicturesFolder())
         
         fullUrl = os.path.join(prefix)
         dateTimeSorting = datetime.now().strftime(job['FolderStructureSelection'])
