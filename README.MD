@@ -29,6 +29,14 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 - Make sure Tab Order is correct in QtDesigner. As in the order of items to cycle thrugh when pressing TAB
 
 
+# Branches: 
+## Main
+This branch is the same as the current release.
+
+## Working-Branch
+This branch is the branch i use to develop this program. If you want the latest broken version, this is the one.
+
+
 # Building information:
 (This is mostly for me)
 
