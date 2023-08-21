@@ -8,7 +8,13 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 # Todo list: 
 
 ## First Priority
-- Add Force Update to EXE.
+- Make sure the old version is removed before updating, if not the program does not update
+- Noen ganger så kommer ikke bilder opp første gangen hos KUNDE. Gjøre en dobbel skanning fikser det?
+- Sjekk at noen bilder valgt under import
+- Bilde importering burte skje til temp først, også overføre når bildene er ferdig importert
+- Bedre debug meldinger
+
+
 ## Second Priority
 
 -  Reset settings
