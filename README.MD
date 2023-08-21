@@ -1,3 +1,6 @@
+## MTP Functionality is currently disabled as MTP and PTP is unnecessary hard to work with!
+
+
 # Download
 
 Check the Releases page.
