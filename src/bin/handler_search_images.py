@@ -28,7 +28,7 @@ class search_images(QWidget):
 
     def initUI(self):
         vbox = QVBoxLayout(self)
-
+        self.first_search = True
 
         font_header = QFont()
         font_header.setPointSize(20)
@@ -140,6 +140,10 @@ class search_images(QWidget):
                 QApplication.processEvents()
         self.file_list = sorted(self.file_list, key=lambda x: x[1])
         
+        if len(self.file_list) == 0 and self.first_search:
+            self.first_search = False
+            self.get_file_list(import_path)
+            
         self.finishedSearching.emit(self.file_list)
 
         # return

@@ -16,6 +16,7 @@ from PySide6.QtWidgets import (
 import sys
 
 from bin import handler_MTP
+from bin import handler_get_removable_drives
 from bin.debug_write import returnName, isDebug
 # class Signals(QObject):
 #     finished = Signal()
@@ -35,7 +36,9 @@ class widget_select_device(QWidget):
         self.button_pressed = None
         self.event_loop = QEventLoop()
 
-        devices_list = handler_MTP.fetch_devices()
+        
+        # devices_list = handler_MTP.fetch_devices()
+        devices_list = handler_get_removable_drives.fetch_devices() 
 
         # Main Window
         vbox = QVBoxLayout()

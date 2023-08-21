@@ -1,3 +1,6 @@
+## MTP Functionality is currently disabled as MTP and PTP is unnecessary hard to work with!
+
+
 # Download
 
 Check the Releases page.
@@ -8,7 +11,13 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 # Todo list: 
 
 ## First Priority
-- Add Force Update to EXE.
+- Make sure the old version is removed before updating, if not the program does not update
+- Noen ganger så kommer ikke bilder opp første gangen hos KUNDE. Gjøre en dobbel skanning fikser det?
+- Sjekk at noen bilder valgt under import
+- Bilde importering burte skje til temp først, også overføre når bildene er ferdig importert
+- Bedre debug meldinger
+
+
 ## Second Priority
 
 -  Reset settings
@@ -21,6 +30,14 @@ Link to the latest supported release: https://github.com/dokan-dev/dokany/releas
 ## Third Priority
 
 - Make sure Tab Order is correct in QtDesigner. As in the order of items to cycle thrugh when pressing TAB
+
+
+# Branches: 
+## Main
+This branch is the same as the current release.
+
+## Working-Branch
+This branch is the branch i use to develop this program. If you want the latest broken version, this is the one.
 
 
 # Building information:
