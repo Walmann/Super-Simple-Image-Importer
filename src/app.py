@@ -274,7 +274,7 @@ if __name__ == "__main__":
     # except FileNotFoundError as e:
     #     pass
 
-    parser = argparse.ArgumentParser(description="Flytt filer fra tovare til Vault.")
+    parser = argparse.ArgumentParser(description="")
     parser.add_argument(
         "-forceUpdate", action="store_true", help="Force update the program."
     )
@@ -283,7 +283,7 @@ if __name__ == "__main__":
     app = QApplication([])
 
     is_update_available = check_for_updates()
-    is_update_available = [False]
+    # is_update_available = [False]
 
     if is_update_available[0] or args.forceUpdate:
         from bin.fetch_and_install_update import download_and_install_latest_release

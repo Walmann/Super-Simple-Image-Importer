@@ -1,7 +1,7 @@
 
 [Setup]
 AppName=Super Simple Image Importer
-AppVersion=0.3.3.1
+AppVersion=0.3.3.2
 WizardStyle=modern
 DefaultDirName={autopf}\SSII
 DefaultGroupName=Super Simple Image Importer
@@ -16,7 +16,7 @@ OutputBaseFilename=SuperSimpleImageImporterSetup
 [Files]
 Source: "Exe_Dest\SSII\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
 ;Source: "Dokan_x64V1_5_1_1.msi"; DestDir: "{app}";
-Source: "DokanSetup.exe"; DestDir: "{app}";
+;Source: "DokanSetup.exe"; DestDir: "{app}";
 
 [Tasks]
 Name: "desktopicon"; Description: "Opprett en snarvei på skrivebordet"; GroupDescription: "Snarveier:";
@@ -32,5 +32,5 @@ Name: "{userstartmenu}\Super Simple Image Importer"; Filename: "{app}\SSII.exe";
 
 [Run]
 ;Filename: "{app}\Dokan_x64V1_5_1_1.msi"; Parameters: "/quiet"; StatusMsg: "Installerer Dokany";
-Filename: "{app}\DokanSetup.exe"; Parameters: "/passive"; StatusMsg: "Installerer Dokany";
+;Filename: "{app}\DokanSetup.exe"; Parameters: "/passive"; StatusMsg: "Installerer Dokany";
 Filename: "{app}\SSII.exe"; Description: "{cm:LaunchProgram,SSII}"; Flags: nowait postinstall skipifsilent; Tasks: startafterinstall
