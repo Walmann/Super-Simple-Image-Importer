@@ -2,7 +2,7 @@ import subprocess
 import re
 
 # import os
-from bin.debug_write import isDebug
+from bin.debug_write import isDebug, writeDebug
 
 
 def unmount_MTP_device(device=None, unmount_all=True, unmount_all_debug=False):
@@ -50,13 +50,12 @@ def mount_MTP_device(device, debug=False):
     try:
         Output = proc.stdout.decode()
     except AttributeError as e:
-        if isDebug():
-            print(e)
+        if writeDebug(e):
+            pass
         else: 
             pass
 
-    if isDebug():
-        print(f"Mounting MTP Device Output: \n{Output}")
+    writeDebug(f"Mounting MTP Device Output: \n{Output}")
 
     # Get info from Output of command above
     re_pattern_drive_letter_name = "((Drive )(.).*? is now (.*?). Don't)"
@@ -88,8 +87,8 @@ def fetch_devices():
         # Output = proc.stdout.decode()
         Output = str(proc.stdout.read())
     except AttributeError as e:
-        if isDebug():
-            print(e)
+        if writeDebug(e):
+            pass
         else: 
             pass
     found_devices_raw = re.findall(re_pattern, Output, re.DOTALL)

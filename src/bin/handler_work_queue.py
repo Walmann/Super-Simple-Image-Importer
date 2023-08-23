@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QObject, QEventLoop
 
-from bin.debug_write import isDebug
+from bin.debug_write import isDebug, writeDebug
 
 # class Signals(QObject):
 #     finished = Signal()
@@ -101,18 +101,15 @@ class Work_queue(QWidget):
                 # Look for the value corresponding to the "Pictures" folder
                 pictures_folder_path, _ = winreg.QueryValueEx(key, "My Pictures")
 
-                if isDebug:
-                    print(f'Found Pictures folder in registry: {pictures_folder_path}')
+                writeDebug(f'Found Pictures folder in registry: {pictures_folder_path}')
 
                 # Check if the folder path exists
                 if os.path.exists(pictures_folder_path):
-                    if isDebug():
-                        print("Found Pictures folder on disk!")
+                    writeDebug("Found Pictures folder on disk!")
                     return pictures_folder_path
 
         except Exception as e:
-            if isDebug():
-                print("Error occurred while accessing the registry:", e)
+            writeDebug("Error occurred while accessing the registry:", e)
 
         return None
 

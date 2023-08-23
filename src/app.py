@@ -78,11 +78,11 @@ from bin.handler_select_images_to_import import Gallery_Select
 from bin.handler_export import Export_jobs_widget
 from bin.handler_work_queue import Work_queue
 from bin.handler_export_status_report import Export_status_report
-from bin.debug_write import isDebug
+from bin.debug_write import isDebug, writeDebug
 from bin.handler_worker_queue_file import worker_queue_file_handler
 
 
-# if isDebug:
+
 class Signals(QObject):
     finished = Signal()
 
@@ -204,8 +204,7 @@ class MainWindow(QMainWindow):
 
     def job_queue_finished(self, export_status):
         self.export_status = export_status
-        if isDebug:
-            print("Start Queue Clicked and registered!")
+        writeDebug("Start Queue Clicked and registered!")
         self.change_layout("handler_export_status_report")
 
     def importMoreImages(self):
@@ -244,8 +243,7 @@ class MainWindow(QMainWindow):
 
         else:
             # self.new_module = self.ErrorLayout()
-            if isDebug:
-                print("Error")
+            writeDebug("Error")
 
         # Common settings:
         self.new_module.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)

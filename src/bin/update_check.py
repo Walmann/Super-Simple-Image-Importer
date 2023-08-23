@@ -1,7 +1,7 @@
 import requests
 import sys
 import win32api
-from bin.debug_write import isDebug
+from bin.debug_write import isDebug, writeDebug
 def get_local_version_info(exe_path):
     info = win32api.GetFileVersionInfo(exe_path, '\\')
     ms = info['FileVersionMS']
@@ -15,8 +15,7 @@ def check_for_updates():
     # Check local version
     exe_path = sys.executable
     version_info_local = get_local_version_info(exe_path)
-    if isDebug:
-        print(f'Local Version: {version_info_local}')
+    writeDebug(f'Local Version: {version_info_local}')
     
 
 
@@ -26,8 +25,7 @@ def check_for_updates():
     response = requests.get(api_url)
     data = response.json()
     version_info_remote = data['tag_name']
-    if isDebug:
-        print(f'Remote Version: {version_info_remote}')
+    writeDebug(f'Remote Version: {version_info_remote}')
     
     # Avgjør om det skal oppdateres eller ikke.
     if version_info_remote != version_info_local:
