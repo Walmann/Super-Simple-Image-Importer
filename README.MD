@@ -5,13 +5,16 @@
 
 Check the Releases page.
 
-This script relies on MTP-mount to work. As that program hasnt been updated to work with dokan 2.0++ you need an older version. The Setup file should install dokan by iteself.
-Link to the latest supported release: https://github.com/dokan-dev/dokany/releases/tag/v1.5.1.1000
+<!-- This script relies on MTP-mount to work. As that program hasnt been updated to work with dokan 2.0++ you need an older version. The Setup file should install dokan by iteself. -->
+<!-- Link to the latest supported release: https://github.com/dokan-dev/dokany/releases/tag/v1.5.1.1000 -->
 
 # Todo list: 
 
+
+
+
 ## First Priority
-- Make sure the old version is removed before updating, if not the program does not update
+- Make sure the old version is removed before updating, if not the program does not update | COULD NOT REPRODUCE!
 - Noen ganger så kommer ikke bilder opp første gangen hos KUNDE. Gjøre en dobbel skanning fikser det?
 - Sjekk at noen bilder valgt under import
 - Bilde importering burte skje til temp først, også overføre når bildene er ferdig importert
