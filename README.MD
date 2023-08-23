@@ -16,7 +16,7 @@ Check the Releases page.
 ## First Priority
 - Make sure the old version is removed before updating, if not the program does not update | COULD NOT REPRODUCE!
 - Noen ganger så kommer ikke bilder opp første gangen hos KUNDE. Gjøre en dobbel skanning fikser det?
-- Sjekk at noen bilder valgt under import
+- Sjekk at minst 1 bilde er valgt under import
 - Bilde importering burte skje til temp først, også overføre når bildene er ferdig importert
 - Bedre debug meldinger
 
